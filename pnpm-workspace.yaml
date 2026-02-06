@@ -2,8 +2,10 @@ packages:
   - apps/*
   - packages/*
   - tooling/*
+  - examples/*
 
 onlyBuiltDependencies:
+  - '@swc/core'
   - esbuild
   - sharp
   - unrs-resolver
