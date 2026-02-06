@@ -1,20 +1,8 @@
 {
-  "name": "unplugin-starter",
+  "name": "core",
   "type": "module",
   "version": "0.0.0",
-  "packageManager": "pnpm@10.28.2",
-  "description": "Description.",
-  "author": "Kevin Deng <sxzz@sxzz.moe>",
   "license": "MIT",
-  "funding": "https://github.com/sponsors/sxzz",
-  "homepage": "https://github.com/sxzz/unplugin-starter#readme",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/sxzz/unplugin-starter.git"
-  },
-  "bugs": {
-    "url": "https://github.com/sxzz/unplugin-starter/issues"
-  },
   "keywords": [
     "unplugin",
     "vite",

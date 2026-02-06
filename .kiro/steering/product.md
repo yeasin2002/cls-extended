@@ -17,17 +17,19 @@ tw-compose is a production-ready, universal build plugin that transforms respons
 The plugin performs AST-based transformations during the build process, converting a cleaner, object-based syntax into standard Tailwind responsive classes. This happens at compile time, resulting in zero runtime JavaScript overhead.
 
 **Transformation Example:**
+
 ```tsx
 // Developer writes this:
-tw('text-xl font-bold', { md: 'text-2xl', lg: 'text-3xl' })
+tw("text-xl font-bold", { md: "text-2xl", lg: "text-3xl" });
 
 // Plugin compiles to this at build time:
-"text-xl font-bold md:text-2xl lg:text-3xl"
+("text-xl font-bold md:text-2xl lg:text-3xl");
 ```
 
 ## Key Features
 
 ### Core Capabilities
+
 - **Zero Runtime Overhead**: All transformations happen at build time, no runtime JavaScript
 - **Better Developer Experience**: Reduces code verbosity by ~40% for responsive designs
 - **Type Safe**: Full TypeScript support with intelligent autocomplete
@@ -35,6 +37,7 @@ tw('text-xl font-bold', { md: 'text-2xl', lg: 'text-3xl' })
 - **Source Maps**: Maintains accurate source maps for debugging
 
 ### Build Tool Support
+
 - ✅ Vite
 - ✅ Webpack
 - ✅ Rollup
@@ -44,6 +47,7 @@ tw('text-xl font-bold', { md: 'text-2xl', lg: 'text-3xl' })
 - ✅ Farm
 
 ### Technical Features
+
 - AST-based transformation using Babel parser
 - Support for all Tailwind breakpoints (sm, md, lg, xl, 2xl)
 - Configurable breakpoint system for custom Tailwind configs
@@ -54,6 +58,7 @@ tw('text-xl font-bold', { md: 'text-2xl', lg: 'text-3xl' })
 ## Current Implementation
 
 ### Fully Implemented
+
 - ✅ Core transformation engine with 3-stage pipeline
 - ✅ Universal build tool integration via unplugin
 - ✅ Comprehensive test suite (8 passing tests, 100% coverage)
@@ -65,6 +70,7 @@ tw('text-xl font-bold', { md: 'text-2xl', lg: 'text-3xl' })
 - ✅ Production-ready package configuration
 
 ### Package Details
+
 - **Name**: tw-compose
 - **Version**: 1.0.0
 - **Bundle Size**: ~8.26 KB (gzipped: ~3.5 KB)
@@ -75,6 +81,7 @@ tw('text-xl font-bold', { md: 'text-2xl', lg: 'text-3xl' })
 ## Use Cases
 
 ### Ideal For
+
 - Projects with extensive responsive designs
 - Teams prioritizing code maintainability
 - Applications requiring zero runtime overhead
@@ -82,6 +89,7 @@ tw('text-xl font-bold', { md: 'text-2xl', lg: 'text-3xl' })
 - Design systems with consistent breakpoint usage
 
 ### Benefits Over Manual Approach
+
 1. **Readability**: Object syntax is clearer than long class strings
 2. **Maintainability**: Easier to modify responsive behavior
 3. **Type Safety**: Compile-time validation of breakpoints
@@ -91,12 +99,14 @@ tw('text-xl font-bold', { md: 'text-2xl', lg: 'text-3xl' })
 ## Future Roadmap
 
 ### Planned Features (Phase 2)
+
 - **Variant Support**: hover, focus, dark mode variants
 - **Custom Breakpoints**: User-defined breakpoint configurations
 - **Group/Peer Variants**: Advanced Tailwind variant support
 - **IDE Extensions**: VS Code and WebStorm plugins
 
 ### Extensibility
+
 - Plugin architecture designed for extension
 - Monorepo structure supports additional packages
 - Community contribution opportunities
@@ -105,30 +115,29 @@ tw('text-xl font-bold', { md: 'text-2xl', lg: 'text-3xl' })
 ## Getting Started
 
 ### Installation
+
 ```bash
 npm install -D tw-compose
 ```
 
 ### Basic Usage (Vite)
+
 ```typescript
 // vite.config.ts
-import twClassname from 'tw-compose/vite'
+import twClassname from "tw-compose/vite";
 
 export default defineConfig({
   plugins: [twClassname()],
-})
+});
 ```
 
 ### In Your Components
+
 ```tsx
-import { tw } from 'tw-compose/api'
+import { tw } from "tw-compose/api";
 
 function Component() {
-  return (
-    <div className={tw('p-4', { md: 'p-6', lg: 'p-8' })}>
-      Content
-    </div>
-  )
+  return <div className={tw("p-4", { md: "p-6", lg: "p-8" })}>Content</div>;
 }
 ```
 

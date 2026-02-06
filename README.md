@@ -18,13 +18,13 @@ Zero-runtime Tailwind CSS responsive utilities with better developer experience.
 Write this:
 
 ```tsx
-tw('text-xl font-bold', { md: 'text-2xl', lg: 'text-3xl' })
+tw("text-xl font-bold", { md: "text-2xl", lg: "text-3xl" });
 ```
 
 Get this at build time:
 
 ```tsx
-"text-xl font-bold md:text-2xl lg:text-3xl"
+"text-xl font-bold md:text-2xl lg:text-3xl";
 ```
 
 No runtime overhead, just static strings.
@@ -40,11 +40,11 @@ npm i -D tw-compose
 
 ```ts
 // vite.config.ts
-import TwClassname from 'tw-compose/vite'
+import TwClassname from "tw-compose/vite";
 
 export default defineConfig({
   plugins: [TwClassname()],
-})
+});
 ```
 
 <br></details>
@@ -54,14 +54,14 @@ export default defineConfig({
 
 ```js
 // next.config.mjs
-import TwClassname from 'tw-compose/webpack'
+import TwClassname from "tw-compose/webpack";
 
 export default {
   webpack: (config) => {
-    config.plugins.push(TwClassname())
-    return config
+    config.plugins.push(TwClassname());
+    return config;
   },
-}
+};
 ```
 
 <br></details>
@@ -71,11 +71,11 @@ export default {
 
 ```ts
 // rollup.config.js
-import TwClassname from 'tw-compose/rollup'
+import TwClassname from "tw-compose/rollup";
 
 export default {
   plugins: [TwClassname()],
-}
+};
 ```
 
 <br></details>
@@ -85,11 +85,11 @@ export default {
 
 ```ts
 // rolldown.config.ts
-import TwClassname from 'tw-compose/rolldown'
+import TwClassname from "tw-compose/rolldown";
 
 export default {
   plugins: [TwClassname()],
-}
+};
 ```
 
 <br></details>
@@ -98,12 +98,12 @@ export default {
 <summary>esbuild</summary><br>
 
 ```ts
-import { build } from 'esbuild'
-import TwClassname from 'tw-compose/esbuild'
+import { build } from "esbuild";
+import TwClassname from "tw-compose/esbuild";
 
 build({
   plugins: [TwClassname()],
-})
+});
 ```
 
 <br></details>
@@ -113,11 +113,11 @@ build({
 
 ```js
 // webpack.config.js
-import TwClassname from 'tw-compose/webpack'
+import TwClassname from "tw-compose/webpack";
 
 export default {
   plugins: [TwClassname()],
-}
+};
 ```
 
 <br></details>
@@ -127,11 +127,11 @@ export default {
 
 ```ts
 // rspack.config.js
-import TwClassname from 'tw-compose/rspack'
+import TwClassname from "tw-compose/rspack";
 
 export default {
   plugins: [TwClassname()],
-}
+};
 ```
 
 <br></details>
@@ -141,11 +141,11 @@ export default {
 
 ```ts
 // farm.config.ts
-import TwClassname from 'tw-compose/farm'
+import TwClassname from "tw-compose/farm";
 
 export default {
   plugins: [TwClassname()],
-}
+};
 ```
 
 <br></details>
@@ -153,18 +153,20 @@ export default {
 ## Usage
 
 ```tsx
-import { tw } from 'tw-compose'
+import { tw } from "tw-compose";
 
 function Component() {
   return (
-    <div className={tw('container mx-auto px-4', {
-      md: 'px-6 max-w-4xl',
-      lg: 'px-8 max-w-6xl',
-      xl: 'max-w-7xl'
-    })}>
+    <div
+      className={tw("container mx-auto px-4", {
+        md: "px-6 max-w-4xl",
+        lg: "px-8 max-w-6xl",
+        xl: "max-w-7xl",
+      })}
+    >
       Content
     </div>
-  )
+  );
 }
 ```
 
@@ -176,19 +178,19 @@ The `tw()` function is compiled away at build time, leaving only the static clas
 TwClassname({
   // Files to include (default: JS/TS/JSX/TSX files)
   include: [/\.[jt]sx?$/],
-  
+
   // Files to exclude (default: node_modules)
   exclude: [/node_modules/],
-  
+
   // Custom Tailwind breakpoints
   breakpoints: {
-    sm: '640px',
-    md: '768px',
-    lg: '1024px',
-    xl: '1280px',
-    '2xl': '1536px',
+    sm: "640px",
+    md: "768px",
+    lg: "1024px",
+    xl: "1280px",
+    "2xl": "1536px",
   },
-})
+});
 ```
 
 ## Development

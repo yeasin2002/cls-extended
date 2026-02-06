@@ -110,18 +110,21 @@ tw-compose/
 ### 1. Monorepo Structure
 
 **Root Level (Private)**
+
 - Purpose: Orchestration and shared configuration
 - Type: Private (not publishable)
 - Contains: Workspace configuration, shared dev dependencies
 - Scripts: Turborepo commands (build, test, lint, typecheck)
 
 **packages/core (Publishable)**
+
 - Purpose: Main plugin implementation
 - Type: Public (publishable to npm)
 - Version: 1.0.0
 - Exports: 9 entry points (main + 7 build tools + API)
 
 **examples/ (Private)**
+
 - Purpose: Demonstration and integration testing
 - Type: Private (not publishable)
 - Dependencies: Uses `workspace:*` protocol for local plugin
@@ -159,17 +162,20 @@ tw-compose/
 ### 3. File Naming Conventions
 
 **Source Files:**
+
 - `.ts` extension for TypeScript source
 - Lowercase with hyphens for multi-word files
 - Build tool exports match tool name exactly
 
 **Test Files:**
+
 - `.test.ts` suffix for test files
 - Collocated with source in `tests/` directory
 - Fixtures in `tests/fixtures/`
 - Snapshots in `tests/__snapshots__/`
 
 **Configuration Files:**
+
 - `tsconfig.json` for TypeScript
 - `tsdown.config.ts` for build
 - `eslint.config.js` for linting
@@ -184,37 +190,40 @@ The plugin uses a "shallow" entry mode with 9 separate entry points:
 ```json
 {
   "exports": {
-    ".": "./dist/index.js",           // Main plugin factory
-    "./api": "./dist/api.js",         // Runtime tw() function
-    "./vite": "./dist/vite.js",       // Vite integration
+    ".": "./dist/index.js", // Main plugin factory
+    "./api": "./dist/api.js", // Runtime tw() function
+    "./vite": "./dist/vite.js", // Vite integration
     "./webpack": "./dist/webpack.js", // Webpack integration
-    "./rollup": "./dist/rollup.js",   // Rollup integration
+    "./rollup": "./dist/rollup.js", // Rollup integration
     "./rolldown": "./dist/rolldown.js", // Rolldown integration
     "./esbuild": "./dist/esbuild.js", // esbuild integration
-    "./rspack": "./dist/rspack.js",   // Rspack integration
-    "./farm": "./dist/farm.js"        // Farm integration
+    "./rspack": "./dist/rspack.js", // Rspack integration
+    "./farm": "./dist/farm.js" // Farm integration
   }
 }
 ```
 
 **Benefits:**
+
 - Tree-shaking optimization
 - Smaller bundle sizes
 - Clear import paths
 - Better IDE autocomplete
 
 **Usage Examples:**
+
 ```typescript
 // In build config
-import twClassname from 'tw-compose/vite'
+import twClassname from "tw-compose/vite";
 
 // In application code
-import { tw } from 'tw-compose/api'
+import { tw } from "tw-compose/api";
 ```
 
 ### 5. Workspace Protocol
 
 **Example Package Dependencies:**
+
 ```json
 {
   "dependencies": {
@@ -224,6 +233,7 @@ import { tw } from 'tw-compose/api'
 ```
 
 **Benefits:**
+
 - Always uses local version during development
 - Automatic linking without manual npm link
 - Proper version resolution on publish
@@ -232,6 +242,7 @@ import { tw } from 'tw-compose/api'
 ### 6. Transform Pattern
 
 **Filter Configuration:**
+
 ```typescript
 {
   include: [/\.[jt]sx?$/],  // JS, TS, JSX, TSX files
@@ -240,6 +251,7 @@ import { tw } from 'tw-compose/api'
 ```
 
 **Transformation Pipeline:**
+
 1. **Filter**: Check if file should be processed
 2. **Quick Scan**: Look for 'tw(' string
 3. **Parse**: Generate AST with Babel
@@ -249,6 +261,7 @@ import { tw } from 'tw-compose/api'
 ### 7. Configuration Hierarchy
 
 **TypeScript Configuration:**
+
 ```
 tsconfig.json (root)           # Base configuration
   ↓ extends
@@ -258,6 +271,7 @@ packages/core/src/**/*.ts      # Source files
 ```
 
 **Build Configuration:**
+
 - Root: Turborepo task pipeline
 - Package: tsdown build configuration
 - Tool-specific: Handled by unplugin
@@ -265,12 +279,14 @@ packages/core/src/**/*.ts      # Source files
 ### 8. Testing Strategy
 
 **Test Organization:**
+
 - Unit tests in `packages/core/tests/`
 - Fixtures for integration testing
 - Snapshot tests for complex transformations
 - Example apps as integration tests
 
 **Test Coverage:**
+
 - 8 unit tests covering core logic
 - 100% coverage of transformation pipeline
 - Multi-version testing (Node 20, 22)
@@ -288,6 +304,7 @@ packages/core/src/**/*.ts      # Source files
 ### 10. CI/CD Integration
 
 **Workflow Organization:**
+
 - Separate workflows for different concerns
 - Parallel execution where possible
 - Turborepo cache integration
@@ -296,6 +313,7 @@ packages/core/src/**/*.ts      # Source files
 ## Development Workflow
 
 ### Local Development
+
 ```bash
 # Install dependencies
 pnpm install
@@ -314,12 +332,14 @@ pnpm typecheck
 ```
 
 ### Adding New Packages
+
 1. Create directory in `packages/` or `examples/`
 2. Add `package.json` with proper name
 3. Run `pnpm install` from root
 4. Add to workspace if needed
 
 ### Publishing
+
 ```bash
 cd packages/core
 pnpm build
@@ -330,26 +350,29 @@ pnpm publish
 ## Best Practices
 
 ### File Organization
+
 - Keep related files together
 - Minimize directory nesting
 - Use clear, descriptive names
 - Separate concerns logically
 
 ### Dependency Management
+
 - Shared dev dependencies at root
 - Package-specific deps in package
 - Use workspace protocol for internal deps
 - Keep dependencies minimal
 
 ### Build Optimization
+
 - Leverage Turborepo caching
 - Use parallel execution
 - Filter packages when possible
 - Clean builds when needed
 
 ### Code Quality
+
 - Strict TypeScript mode
 - ESLint with preset rules
 - Prettier for formatting
 - Comprehensive testing
-
