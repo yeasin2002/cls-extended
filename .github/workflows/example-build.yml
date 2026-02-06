@@ -1,0 +1,78 @@
+name: Example Build
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'examples/**'
+      - 'packages/core/**'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'examples/**'
+      - 'packages/core/**'
+
+permissions:
+  contents: read
+
+jobs:
+  build-examples:
+    name: Build Examples
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.28.2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build core package
+        run: pnpm --filter unplugin-tw-classname build
+
+      - name: Build Vite React example
+        run: pnpm --filter @examples/vite-react build
+
+      - name: Upload example artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: example-builds
+          path: examples/*/dist
+          retention-days: 7
+
+  verify-examples:
+    name: Verify Examples
+    runs-on: ubuntu-latest
+    needs: build-examples
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: example-builds
+          path: examples-dist
+
+      - name: Verify build outputs
+        run: |
+          echo "Checking example build outputs..."
+          if [ -d "examples-dist" ]; then
+            echo "✓ Examples built successfully"
+            ls -la examples-dist/
+          else
+            echo "✗ Example builds not found"
+            exit 1
+          fi
