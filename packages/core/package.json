@@ -8,6 +8,8 @@
     "./adapters/webpack": "./dist/adapters/webpack.js",
     "./api": "./dist/api.js",
     "./core/options": "./dist/core/options.js",
+    "./core/parser": "./dist/core/parser.js",
+    "./core/transform": "./dist/core/transform.js",
     "./package.json": "./package.json"
   },
   "typesVersions": {
@@ -38,6 +40,7 @@
   },
   "dependencies": {
     "@babel/parser": "^7.29.0",
+    "magic-string": "^0.30.21",
     "unplugin": "^3.0.0"
   },
   "devDependencies": {

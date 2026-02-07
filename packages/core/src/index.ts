@@ -1,5 +1,6 @@
 import { createUnplugin, type UnpluginInstance } from "unplugin";
 import { resolveOptions, type Options } from "./core/options";
+import { transformClsCalls } from "./core/transform";
 
 const unplugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
   (rawOptions = {}) => {
@@ -14,8 +15,13 @@ const unplugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
           id: { include: options.include, exclude: options.exclude },
         },
         handler(code, id) {
+          // Only process files that might contain tw()
+          if (!code.includes("tw(")) {
+            return null;
+          }
+
           // Perform transformation
-          // return transformationFunction(code, id, options)
+          return transformClsCalls(code, id, options);
         },
       },
     };

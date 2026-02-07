@@ -1,38 +1,38 @@
-import MagicString from 'magic-string'
-import type { OptionsResolved } from './options'
-import { findTwCalls, type ClsCallExpression } from "./parser";
+import MagicString from "magic-string";
+import type { OptionsResolved } from "./options";
+import { findClsCalls, type ClsCallExpression } from "./parser";
 
 export interface TransformResult {
-  code: string
-  map: any
+  code: string;
+  map: any;
 }
 
-export function transformTwCalls(
+export function transformClsCalls(
   code: string,
   _id: string,
   options: OptionsResolved,
 ): TransformResult | null {
   // Find all tw() calls
-  const twCalls = findTwCalls(code)
+  const twCalls = findClsCalls(code);
 
   if (twCalls.length === 0) {
-    return null
+    return null;
   }
 
-  const s = new MagicString(code)
+  const s = new MagicString(code);
 
   // Process each tw() call
   for (const call of twCalls) {
-    const transformedString = generateClassString(call, options)
+    const transformedString = generateClassString(call, options);
 
     // Replace the entire tw() call with a static string
-    s.overwrite(call.start, call.end, `"${transformedString}"`)
+    s.overwrite(call.start, call.end, `"${transformedString}"`);
   }
 
   return {
     code: s.toString(),
     map: options.sourcemap ? s.generateMap({ hires: true }) : null,
-  }
+  };
 }
 
 function generateClassString(
