@@ -1,7 +1,7 @@
 import { createUnplugin, type UnpluginInstance } from 'unplugin'
 import { resolveOptions, type Options } from './core/options'
 
-export const Starter: UnpluginInstance<Options | undefined, false> =
+export const unplugin: UnpluginInstance<Options | undefined, false> =
   createUnplugin((rawOptions = {}) => {
     const options = resolveOptions(rawOptions)
 

@@ -4,7 +4,7 @@
  * @module
  */
 
-import { Starter } from '../index'
+import { unplugin } from '../index'
 
 /**
  * Vite plugin
@@ -19,6 +19,7 @@ import { Starter } from '../index'
  * })
  * ```
  */
-const vite = Starter.vite as typeof Starter.vite
+const vite = unplugin.vite as typeof unplugin.vite
 export default vite
 export { vite as } from 'module.exports'
+
