@@ -5,12 +5,12 @@ on:
     branches: [main]
     paths:
       - 'examples/**'
-      - 'packages/core/**'
+      - 'packages/cls-extended/**'
   pull_request:
     branches: [main]
     paths:
       - 'examples/**'
-      - 'packages/core/**'
+      - 'packages/cls-extended/**'
 
 permissions:
   contents: read
@@ -39,7 +39,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build core package
-        run: pnpm --filter @cls-extended/core build
+        run: pnpm --filter cls-extended build
 
       - name: Build all examples
         run: pnpm --filter "./examples/**" build
