@@ -225,15 +225,20 @@ git commit -m "fix: resolve parsing error in nested JSX"
 
 Releases are fully automated using [semantic-release](https://github.com/semantic-release/semantic-release):
 
-1. Push commits to `main` branch
-2. CI runs tests and builds
-3. semantic-release analyzes commits
-4. Version is bumped automatically
-5. Package is published to npm
-6. GitHub release is created
-7. Changelog is updated
+**Three ways to release:**
 
-See [docs/RELEASE-PROCESS.md](./docs/RELEASE-PROCESS.md) for detailed information.
+1. **Automatic** - Push commits to `main` branch
+2. **Tag-Based** - Push a version tag (`v1.2.3`)
+3. **Manual** - Trigger via GitHub Actions UI
+
+All releases include:
+- ✨ Auto-generated release notes with emojis
+- 📦 Automatic npm publishing
+- 🏷️ GitHub releases with assets
+- 📝 Updated CHANGELOG.md
+- 💬 Automatic issue/PR comments
+
+See [Release Quick Start](./docs/RELEASE-QUICK-START.md) or [Full Release Guide](./docs/RELEASE-WORKFLOWS.md) for details.
 
 ## License
 

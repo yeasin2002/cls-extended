@@ -55,6 +55,9 @@ Use this checklist to complete your first release to npm and GitHub.
 
 ### 7. Create Release Commit
 
+**Choose your release method:**
+
+**Option A: Automatic Release (Recommended)**
 ```bash
 # Ensure you're on main branch
 git checkout main
@@ -76,10 +79,27 @@ Features:
 - Comprehensive test suite with 100% coverage
 - Runtime fallback for environments without plugin support
 - Complete documentation and examples"
+
+# Push to trigger automatic release
+git push origin main
 ```
 
-- [ ] Commit created with conventional format
-- [ ] Commit message describes the release
+**Option B: Tag-Based Release**
+```bash
+# Create and push a version tag
+git tag v0.1.0
+git push origin v0.1.0
+```
+
+**Option C: Manual Release**
+1. Go to Actions → Release workflow
+2. Click "Run workflow"
+3. Select "main" branch
+4. Leave release type empty (auto-detect)
+5. Click "Run workflow"
+
+- [ ] Release method chosen
+- [ ] Commit/tag created
 
 ### 8. Push to Trigger Release
 
