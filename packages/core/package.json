@@ -1,5 +1,5 @@
 {
-  "name": "core",
+  "name": "@cls-extended/core",
   "type": "module",
   "version": "0.0.0",
   "exports": {

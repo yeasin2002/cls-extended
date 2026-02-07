@@ -1,7 +1,8 @@
-import { defineConfig } from "vite";
+import clsExtended from "@cls-extended/core/adapters/vite";
 import react from "@vitejs/plugin-react-swc";
+import { defineConfig } from "vite";
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), clsExtended()],
 });
