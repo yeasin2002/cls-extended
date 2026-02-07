@@ -37,7 +37,8 @@
     "dev": "tsdown --watch",
     "test": "vitest",
     "typecheck": "tsc --noEmit",
-    "prepublishOnly": "pnpm run build"
+    "prepublishOnly": "pnpm run build",
+    "release": "release-it"
   },
   "dependencies": {
     "@babel/parser": "^7.29.0",
@@ -47,15 +48,18 @@
   "devDependencies": {
     "@babel/types": "^7.29.0",
     "@eslint/js": "^9.39.2",
+    "@release-it/conventional-changelog": "^8.0.2",
     "@sxzz/eslint-config": "^7.6.0",
     "@sxzz/prettier-config": "^2.3.1",
     "@sxzz/test-utils": "^0.5.15",
     "@types/node": "^25.2.0",
+    "auto-changelog": "^2.5.0",
     "bumpp": "^10.4.0",
     "eslint": "^9.39.2",
     "globals": "^16.5.0",
     "jiti": "^2.6.1",
     "prettier": "^3.8.1",
+    "release-it": "^17.10.0",
     "tsdown": "^0.20.1",
     "tsdown-preset-sxzz": "^0.3.1",
     "typescript": "^5.9.3",

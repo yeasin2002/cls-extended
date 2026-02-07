@@ -1,0 +1,21 @@
+{
+  "output": "CHANGELOG.md",
+  "template": "compact",
+  "unreleased": true,
+  "commitLimit": false,
+  "backfillLimit": false,
+  "hideCredit": true,
+  "breakingPattern": "BREAKING CHANGE:",
+  "replaceText": {
+    "^feat:": "✨ Feature:",
+    "^fix:": "🐛 Fix:",
+    "^perf:": "⚡ Performance:",
+    "^docs:": "📚 Docs:",
+    "^refactor:": "♻️ Refactor:",
+    "^style:": "💎 Style:",
+    "^test:": "✅ Test:",
+    "^build:": "🔨 Build:",
+    "^ci:": "👷 CI:",
+    "^chore:": "🔧 Chore:"
+  }
+}

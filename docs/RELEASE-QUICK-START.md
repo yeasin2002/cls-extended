@@ -1,51 +1,28 @@
 # Release Quick Start Guide
 
-## 🚀 Three Ways to Release
+## 🚀 Tag-Based Releases with release-it
 
-### 1. Automatic (Recommended)
+### Simple 2-Step Process
 
-**Just push to main:**
+**Step 1: Commit and push your changes**
 
 ```bash
+git add .
 git commit -m "feat: add new feature"
 git push origin main
+```
+
+**Step 2: Create and push a version tag**
+
+```bash
+git tag v1.0.1
+git push origin v1.0.1
 ```
 
 ✅ Automatic version bump  
 ✅ Auto-generated release notes with emojis  
 ✅ Published to npm  
 ✅ GitHub release created
-
----
-
-### 2. Tag-Based
-
-**Push a version tag:**
-
-```bash
-git tag v1.2.3
-git push origin v1.2.3
-```
-
-✅ Specific version control  
-✅ Auto-generated release notes  
-✅ Published to npm  
-✅ GitHub release created
-
----
-
-### 3. Manual
-
-**Use GitHub Actions UI:**
-
-1. Go to **Actions** → **Release**
-2. Click **Run workflow**
-3. Select release type (optional)
-4. Click **Run workflow**
-
-✅ Emergency releases  
-✅ Testing  
-✅ Override auto-detection
 
 ---
 
@@ -67,53 +44,49 @@ Plus:
 - 🔗 Links to commits, issues, and PRs
 - 👥 Contributor list
 - 🚨 Breaking changes highlighted
-- 💬 Automatic comments on issues/PRs
 
 ---
 
 ## 📚 Full Documentation
 
-- [Complete Release Workflows](./RELEASE-WORKFLOWS.md)
+- [Complete Release Guide](./RELEASE-IT-GUIDE.md)
 - [Release Process Guide](./RELEASE-PROCESS.md)
 - [Setup Instructions](./RELEASE-SETUP.md)
-- [Commit Conventions](../.github/COMMIT_CONVENTION.md)
 
 ---
 
 ## 🎯 Quick Examples
 
-### Feature Release
-
-```bash
-git commit -m "feat: add hover variant support"
-git push origin main
-# → v0.2.0
-```
-
-### Bug Fix
+### Patch Release (Bug Fix)
 
 ```bash
 git commit -m "fix: resolve parsing error"
 git push origin main
-# → v0.1.1
+git tag v1.0.1
+git push origin v1.0.1
+# → v1.0.1
 ```
 
-### Breaking Change
+### Minor Release (New Feature)
+
+```bash
+git commit -m "feat: add hover variant support"
+git push origin main
+git tag v1.1.0
+git push origin v1.1.0
+# → v1.1.0
+```
+
+### Major Release (Breaking Change)
 
 ```bash
 git commit -m "feat: redesign API
 
 BREAKING CHANGE: Configuration format changed"
 git push origin main
-# → v1.0.0
-```
-
-### Specific Version
-
-```bash
-git tag v2.0.0-beta.1
-git push origin v2.0.0-beta.1
-# → v2.0.0-beta.1
+git tag v2.0.0
+git push origin v2.0.0
+# → v2.0.0
 ```
 
 ---
@@ -130,4 +103,4 @@ Before releasing:
 
 ---
 
-**Need help?** Check the [full documentation](./RELEASE-WORKFLOWS.md) or open an issue.
+**Need help?** Check the [full documentation](./RELEASE-IT-GUIDE.md) or open an issue.
