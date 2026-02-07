@@ -1,4 +1,4 @@
-import { cls } from "cls-extended/api";
+import { cls } from "cls-extended";
 import Image from "next/image";
 
 export default function Home() {

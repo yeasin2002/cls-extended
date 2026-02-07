@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       cls-extended:
-        specifier: ^1.0.0
-        version: 1.0.0
+        specifier: ^1.1.1
+        version: 1.1.1
       next:
         specifier: 16.1.6
         version: 16.1.6(@babel/core@7.29.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
@@ -834,8 +834,8 @@ packages:
   client-only@0.0.1:
     resolution: {integrity: sha512-IV3Ou0jSMzZrd3pZ48nLkT9DA7Ag1pnPzaiQhpW7c3RbcqqzvzzVu+L8gfqMp/8IM2MQtSiqaCxrrcfu8I8rMA==}
 
-  cls-extended@1.0.0:
-    resolution: {integrity: sha512-7BeEEqoPBkPlzdqS6TbgnATnUzbXR4i7LKqE0iwWh3GhV0ponmjme+rsjin53CxTI6Uyrr+A0E08c68VMw5gBw==}
+  cls-extended@1.1.1:
+    resolution: {integrity: sha512-DfgNpAbeQmGwbo3N07Ym+KByzEx4S+Equ1wpQKo8166hbc/2ZEQoCLo8b5WHgOP668HKmS+a7RFFd0Rd2p7wow==}
     engines: {node: '>=20.19.0'}
 
   color-convert@2.0.1:
@@ -2699,7 +2699,7 @@ snapshots:
 
   client-only@0.0.1: {}
 
-  cls-extended@1.0.0:
+  cls-extended@1.1.1:
     dependencies:
       '@babel/parser': 7.29.0
       magic-string: 0.30.21
