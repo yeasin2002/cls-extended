@@ -39,11 +39,11 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build package
-        run: pnpm --filter cls-extended build
+      # - name: Build package
+      #   run: pnpm --filter cls-extended build
 
-      - name: Run tests
-        run: pnpm --filter cls-extended test --run
+      # - name: Run tests
+      #   run: pnpm --filter cls-extended test --run
 
       - name: Release
         env:

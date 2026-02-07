@@ -1,4 +1,4 @@
-import { cls as tw } from "@cls-extended/core/api";
+import { cls as tw } from "cls-extended/api";
 
 const App = () => {
   return (

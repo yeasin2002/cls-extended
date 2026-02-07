@@ -1,6 +1,6 @@
-import clsExtended from "@cls-extended/core/adapters/vite";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react-swc";
+import clsExtended from "cls-extended/adapters/vite";
 import { defineConfig } from "vite";
 
 // https://vite.dev/config/
