@@ -1,7 +1,7 @@
 {
   "name": "cls-extended",
   "type": "module",
-  "version": "0.0.0-development",
+  "version": "1.0.0",
   "exports": {
     ".": "./dist/index.js",
     "./adapters/vite": "./dist/adapters/vite.js",
