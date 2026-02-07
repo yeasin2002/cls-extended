@@ -6,17 +6,17 @@ I've successfully set up automated releases for cls-extended using semantic-rele
 
 ### 1. Package Configuration
 
-**File**: `packages/core/package.json`
+**File**: `packages/cls-extended/package.json`
 
 Changes made:
 
-- ✅ Changed package name from `@cls-extended/core` to `cls-extended`
+- ✅ Changed package name from `@cls-extended/cls-extended` to `cls-extended`
 - ✅ Set version to `0.0.0-development` (managed by semantic-release)
 - ✅ Configured `publishConfig.access: "public"` for npm
 
 ### 2. Semantic Release Configuration
 
-**File**: `packages/core/.releaserc.json`
+**File**: `packages/cls-extended/.releaserc.json`
 
 Configured plugins:
 
@@ -47,7 +47,7 @@ Created comprehensive documentation:
 - ✅ `docs/RELEASE-PROCESS.md` - Complete release process guide
 - ✅ `docs/RELEASE-SETUP.md` - Step-by-step setup instructions
 - ✅ `docs/SEMANTIC-RELEASE-SUMMARY.md` - This file
-- ✅ `packages/core/CHANGELOG.md` - Changelog file (auto-updated)
+- ✅ `packages/cls-extended/CHANGELOG.md` - Changelog file (auto-updated)
 
 ### 5. README Updates
 
@@ -271,7 +271,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          cd packages/core
+          cd packages/cls-extended
           npx semantic-release@25
 ```
 

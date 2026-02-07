@@ -97,7 +97,7 @@ git checkout main
 git pull origin main
 
 # Navigate to the package
-cd packages/core
+cd packages/cls-extended
 
 # Run semantic-release
 npx semantic-release@25
@@ -129,7 +129,7 @@ This will trigger the release workflow and publish v0.1.0 (or the appropriate ve
 
 ### Package Configuration
 
-The package is configured in `packages/core/package.json`:
+The package is configured in `packages/cls-extended/package.json`:
 
 ```json
 {
@@ -145,7 +145,7 @@ The package is configured in `packages/core/package.json`:
 
 ### Semantic-Release Configuration
 
-Located in `packages/core/.releaserc.json`:
+Located in `packages/cls-extended/.releaserc.json`:
 
 ```json
 {
@@ -311,7 +311,7 @@ Check:
 
 ### Changelog
 
-View `packages/core/CHANGELOG.md` for complete version history.
+View `packages/cls-extended/CHANGELOG.md` for complete version history.
 
 ## Version Strategy
 

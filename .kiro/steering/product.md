@@ -28,7 +28,7 @@ tw("text-xl font-bold", { md: "text-2xl", lg: "text-3xl" });
 
 ## Key Features
 
-### Core Capabilities
+### cls-extended Capabilities
 
 - **Zero Runtime Overhead**: All transformations happen at build time, no runtime JavaScript
 - **Better Developer Experience**: Reduces code verbosity by ~40% for responsive designs
@@ -59,7 +59,7 @@ tw("text-xl font-bold", { md: "text-2xl", lg: "text-3xl" });
 
 ### Fully Implemented
 
-- ✅ Core transformation engine with 3-stage pipeline
+- ✅ cls-extended transformation engine with 3-stage pipeline
 - ✅ Universal build tool integration via unplugin
 - ✅ Comprehensive test suite (8 passing tests, 100% coverage)
 - ✅ Full TypeScript support with strict mode
@@ -144,7 +144,7 @@ function Component() {
 ## Documentation
 
 - **Tutorial**: 10-chapter step-by-step guide in `tutorial/`
-- **API Reference**: Complete API documentation in `packages/core/README.md`
+- **API Reference**: Complete API documentation in `packages/cls-extended/README.md`
 - **Migration Guide**: Monorepo structure guide in `docs/monorepo-migration.md`
 - **Workflow Docs**: CI/CD documentation in `.github/WORKFLOWS.md`
 - **Project Analysis**: Detailed technical analysis in `PROJECT-DETAILS.md`

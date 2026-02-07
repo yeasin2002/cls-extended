@@ -28,7 +28,7 @@ on:
 
 ### 2. Enhanced Release Notes Generation
 
-**File**: `packages/core/.releaserc.json`
+**File**: `packages/cls-extended/.releaserc.json`
 
 **Features Added:**
 
@@ -196,7 +196,7 @@ on:
       release_type: ...
 ```
 
-### `packages/core/.releaserc.json`
+### `packages/cls-extended/.releaserc.json`
 
 ```json
 {
@@ -276,14 +276,14 @@ To test the configuration:
 1. **Dry Run** (doesn't publish):
 
    ```bash
-   cd packages/core
+   cd packages/cls-extended
    npx semantic-release --dry-run
    ```
 
 2. **Check Configuration**:
 
    ```bash
-   cd packages/core
+   cd packages/cls-extended
    npx semantic-release --verify-conditions
    ```
 
@@ -304,7 +304,7 @@ https://www.npmjs.com/package/cls-extended
 
 ### Changelog
 
-`packages/core/CHANGELOG.md`
+`packages/cls-extended/CHANGELOG.md`
 
 ## 📚 Documentation Links
 

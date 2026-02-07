@@ -315,7 +315,7 @@ View on npm: https://www.npmjs.com/package/cls-extended
 
 ### Changelog
 
-View `packages/core/CHANGELOG.md` for complete history.
+View `packages/cls-extended/CHANGELOG.md` for complete history.
 
 ## Examples
 

@@ -13,9 +13,9 @@ This is a **Turborepo monorepo** with **pnpm workspaces**, migrated from a monol
 ```
 cls-extended/
 ├── packages/
-│   └── core/                      # Main plugin package (PUBLISHABLE)
+│   └── cls-extended/                      # Main plugin package (PUBLISHABLE)
 │       ├── src/
-│       │   ├── core/              # Core transformation logic
+│       │   ├── cls-extended/              # cls-extended transformation logic
 │       │   │   ├── options.ts     # Configuration system
 │       │   │   ├── parser.ts      # AST parsing (Babel)
 │       │   │   └── transform.ts   # Code transformation
@@ -64,7 +64,7 @@ cls-extended/
 │   ├── 02-unplugin-api.md         # API understanding
 │   ├── 03-project-setup.md        # Project structure
 │   ├── 04-package-config.md       # Package configuration
-│   ├── 05-core-implementation.md  # Core logic
+│   ├── 05-cls-extended-implementation.md  # cls-extended logic
 │   ├── 06-ast-transformation.md   # AST techniques
 │   ├── 07-build-tool-exports.md   # Integration patterns
 │   ├── 08-testing.md              # Testing strategies
@@ -116,7 +116,7 @@ cls-extended/
 - Contains: Workspace configuration, shared dev dependencies
 - Scripts: Turborepo commands (build, test, lint, typecheck)
 
-**packages/core (Publishable)**
+**packages/cls-extended (Publishable)**
 
 - Purpose: Main plugin implementation
 - Type: Public (publishable to npm)
@@ -145,7 +145,7 @@ cls-extended/
 └─────────────────────────────────────┘
               ↓
 ┌─────────────────────────────────────┐
-│   Core Transformation Engine         │
+│   cls-extended Transformation Engine         │
 │   (parser.ts, transform.ts)        │
 └─────────────────────────────────────┘
 ```
@@ -154,9 +154,9 @@ cls-extended/
 
 - **index.ts**: Main plugin factory using `createUnplugin()`
 - **api.ts**: Runtime tw() function with fallback behavior
-- **core/options.ts**: Configuration resolution and validation
-- **core/parser.ts**: AST parsing and tw() call detection
-- **core/transform.ts**: Code transformation and generation
+- **cls-extended/options.ts**: Configuration resolution and validation
+- **cls-extended/parser.ts**: AST parsing and tw() call detection
+- **cls-extended/transform.ts**: Code transformation and generation
 - **[tool].ts**: Build tool-specific exports (thin wrappers)
 
 ### 3. File Naming Conventions
@@ -265,9 +265,9 @@ import { tw } from "cls-extended/api";
 ```
 tsconfig.json (root)           # Base configuration
   ↓ extends
-packages/core/tsconfig.json    # Package-specific
+packages/cls-extended/tsconfig.json    # Package-specific
   ↓ includes
-packages/core/src/**/*.ts      # Source files
+packages/cls-extended/src/**/*.ts      # Source files
 ```
 
 **Build Configuration:**
@@ -280,14 +280,14 @@ packages/core/src/**/*.ts      # Source files
 
 **Test Organization:**
 
-- Unit tests in `packages/core/tests/`
+- Unit tests in `packages/cls-extended/tests/`
 - Fixtures for integration testing
 - Snapshot tests for complex transformations
 - Example apps as integration tests
 
 **Test Coverage:**
 
-- 8 unit tests covering core logic
+- 8 unit tests covering cls-extended logic
 - 100% coverage of transformation pipeline
 - Multi-version testing (Node 20, 22)
 - Build verification in CI
@@ -341,7 +341,7 @@ pnpm typecheck
 ### Publishing
 
 ```bash
-cd packages/core
+cd packages/cls-extended
 pnpm build
 pnpm test --run
 pnpm publish

@@ -65,7 +65,7 @@ packages:
 - Trust policy for security
 - Build allowlist for native deps
 
-## Core Dependencies
+## cls-extended Dependencies
 
 ### unplugin (v3.0.0)
 
@@ -167,7 +167,7 @@ return { code: s.toString(), map: s.generateMap() };
 - "Shallow" entry mode for multiple entry points
 - Fast build times (~500-700ms)
 
-**Configuration**: `packages/core/tsdown.config.ts`
+**Configuration**: `packages/cls-extended/tsdown.config.ts`
 
 ```typescript
 export default defineConfig({
@@ -216,7 +216,7 @@ export default defineConfig({
 **Test Configuration**:
 
 - 8 unit tests
-- 100% coverage of core logic
+- 100% coverage of cls-extended logic
 - Snapshot testing support
 - JSX/TSX syntax support
 
@@ -292,7 +292,7 @@ export default defineConfig({
 
 - **bumpp** (v10.4.0): Version bumping utility
 - **@types/node** (v25.2.0): Node.js type definitions
-- **@types/babel\_\_core** (v7.20.5): Babel type definitions
+- **@types/babel\_\_cls-extended** (v7.20.5): Babel type definitions
 - **@babel/types** (v7.26.3): Babel AST type definitions
 
 ### Quality Tools
@@ -410,7 +410,7 @@ pnpm build
 
 ```bash
 # Navigate to package
-cd packages/core
+cd packages/cls-extended
 
 # Bump version
 pnpm bumpp

@@ -50,7 +50,7 @@ permissions:
 
 ### 5. Verify Package Configuration
 
-Check `packages/core/package.json`:
+Check `packages/cls-extended/package.json`:
 
 ```json
 {
@@ -75,7 +75,7 @@ Before pushing, you can test the release process locally:
 npm install -g semantic-release@25
 
 # Navigate to package
-cd packages/core
+cd packages/cls-extended
 
 # Dry run (doesn't publish)
 npx semantic-release --dry-run
@@ -142,8 +142,8 @@ After successful release:
 
 **In Repository:**
 
-- Check `packages/core/package.json` - version updated
-- Check `packages/core/CHANGELOG.md` - changelog generated
+- Check `packages/cls-extended/package.json` - version updated
+- Check `packages/cls-extended/CHANGELOG.md` - changelog generated
 - Check Git tags: `git tag -l`
 
 ## Troubleshooting
@@ -198,7 +198,7 @@ After successful release:
 
 ### `.releaserc.json`
 
-Located in `packages/core/.releaserc.json`:
+Located in `packages/cls-extended/.releaserc.json`:
 
 ```json
 {
