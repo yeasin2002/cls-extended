@@ -1,4 +1,10 @@
 # cls-extended
+
+[![npm version](https://img.shields.io/npm/v/cls-extended.svg)](https://www.npmjs.com/package/cls-extended)
+[![npm downloads](https://img.shields.io/npm/dm/cls-extended.svg)](https://www.npmjs.com/package/cls-extended)
+[![semantic-release: angular](https://img.shields.io/badge/semantic--release-angular-e10079?logo=semantic-release)](https://github.com/semantic-release/semantic-release)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 Zero-runtime Tailwind CSS responsive utilities with better developer experience.
 
 ## Features
@@ -174,6 +180,60 @@ The plugin uses AST transformation to detect `tw()` calls during the build proce
 4. Full compatibility with Tailwind's JIT mode and purging
 
 See [PROJECT-DETAILS.md](./PROJECT-DETAILS.md) for complete implementation details.
+
+## Contributing
+
+We welcome contributions! Please see our contributing guidelines:
+
+### Development Setup
+
+```bash
+# Clone the repository
+git clone https://github.com/yeasin2002/cls-extended-protoype.git
+cd cls-extended-protoype
+
+# Install dependencies
+pnpm install
+
+# Build the package
+pnpm --filter cls-extended build
+
+# Run tests
+pnpm --filter cls-extended test
+
+# Run tests in watch mode
+pnpm --filter cls-extended test --watch
+```
+
+### Commit Convention
+
+This project uses [Conventional Commits](https://www.conventionalcommits.org/) for automated releases:
+
+- `feat:` - New features (minor version bump)
+- `fix:` - Bug fixes (patch version bump)
+- `docs:` - Documentation changes (no release)
+- `chore:` - Maintenance tasks (no release)
+- `BREAKING CHANGE:` - Breaking changes (major version bump)
+
+Example:
+```bash
+git commit -m "feat: add support for custom breakpoints"
+git commit -m "fix: resolve parsing error in nested JSX"
+```
+
+### Release Process
+
+Releases are fully automated using [semantic-release](https://github.com/semantic-release/semantic-release):
+
+1. Push commits to `main` branch
+2. CI runs tests and builds
+3. semantic-release analyzes commits
+4. Version is bumped automatically
+5. Package is published to npm
+6. GitHub release is created
+7. Changelog is updated
+
+See [docs/RELEASE-PROCESS.md](./docs/RELEASE-PROCESS.md) for detailed information.
 
 ## License
 
