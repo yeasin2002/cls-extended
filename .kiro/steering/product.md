@@ -40,11 +40,11 @@ tw("text-xl font-bold", { md: "text-2xl", lg: "text-3xl" });
 
 - ✅ Vite
 - ✅ Webpack
-- ✅ Rollup
-- ✅ Rolldown
-- ✅ esbuild
-- ✅ Rspack
-- ✅ Farm
+- 🚧 Rollup (planned)
+- 🚧 Rolldown (planned)
+- 🚧 esbuild (planned)
+- 🚧 Rspack (planned)
+- 🚧 Farm (planned)
 
 ### Technical Features
 
@@ -66,6 +66,7 @@ tw("text-xl font-bold", { md: "text-2xl", lg: "text-3xl" });
 - ✅ Turborepo monorepo structure
 - ✅ GitHub Actions CI/CD workflows
 - ✅ Example Vite + React application
+- ✅ Example Next.js application
 - ✅ Complete documentation (10-chapter tutorial)
 - ✅ Production-ready package configuration
 
@@ -76,7 +77,7 @@ tw("text-xl font-bold", { md: "text-2xl", lg: "text-3xl" });
 - **Bundle Size**: ~8.26 KB (gzipped: ~3.5 KB)
 - **Runtime Impact**: 0 KB (build-time only)
 - **Dependencies**: 3 runtime dependencies (minimal)
-- **Exports**: 9 entry points (main + 7 build tools + API)
+- **Exports**: Multiple entry points (main, adapters, core modules, API)
 
 ## Use Cases
 
@@ -124,7 +125,7 @@ npm install -D cls-extended
 
 ```typescript
 // vite.config.ts
-import twClassname from "cls-extended/vite";
+import twClassname from "cls-extended/adapters/vite";
 
 export default defineConfig({
   plugins: [twClassname()],

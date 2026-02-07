@@ -15,19 +15,16 @@ cls-extended/
 ├── packages/
 │   └── cls-extended/                      # Main plugin package (PUBLISHABLE)
 │       ├── src/
-│       │   ├── cls-extended/              # cls-extended transformation logic
+│       │   ├── adapters/          # Build tool adapters
+│       │   │   ├── vite.ts        # Vite integration
+│       │   │   └── webpack.ts     # Webpack integration
+│       │   ├── core/              # Core transformation logic
 │       │   │   ├── options.ts     # Configuration system
 │       │   │   ├── parser.ts      # AST parsing (Babel)
 │       │   │   └── transform.ts   # Code transformation
-│       │   ├── index.ts           # Main unplugin factory
+│       │   ├── index.ts           # Main entry point
 │       │   ├── api.ts             # Runtime tw() function
-│       │   ├── vite.ts            # Vite integration
-│       │   ├── webpack.ts         # Webpack integration
-│       │   ├── rollup.ts          # Rollup integration
-│       │   ├── rolldown.ts        # Rolldown integration
-│       │   ├── esbuild.ts         # esbuild integration
-│       │   ├── rspack.ts          # Rspack integration
-│       │   └── farm.ts            # Farm integration
+│       │   └── unplugin-factory.ts # Unplugin factory
 │       ├── tests/
 │       │   ├── fixtures/          # Test input files
 │       │   │   └── basic.js       # Sample fixture
@@ -42,21 +39,48 @@ cls-extended/
 │       ├── eslint.config.js       # ESLint configuration
 │       └── README.md              # Package documentation
 │
+├── tooling/
+│   ├── eslint-config/             # Shared ESLint configuration
+│   └── typescript-config/         # Shared TypeScript configuration
+│
 ├── examples/
-│   └── vite-react-example/        # Vite + React demo (PRIVATE)
+│   ├── nextjs/                    # Next.js demo (PRIVATE)
+│   │   ├── app/
+│   │   │   ├── page.tsx           # Landing page demo
+│   │   │   ├── layout.tsx         # Root layout
+│   │   │   ├── globals.css        # Global styles
+│   │   │   └── favicon.ico        # Favicon
+│   │   ├── public/                # Static assets
+│   │   ├── package.json           # Uses cls-extended from npm
+│   │   ├── next.config.ts         # Next.js configuration
+│   │   ├── tsconfig.json          # TypeScript config
+│   │   └── postcss.config.mjs     # PostCSS config
+│   │
+│   └── vite-react/                # Vite + React demo (PRIVATE)
 │       ├── src/
 │       │   ├── App.tsx            # Landing page demo
 │       │   ├── main.tsx           # Entry point
 │       │   └── index.css          # Styles
 │       ├── public/                # Static assets
 │       ├── dist/                  # Build output
-│       ├── package.json           # Uses workspace:* protocol
+│       ├── package.json           # Uses cls-extended from npm
 │       ├── vite.config.ts         # Vite configuration
 │       ├── tsconfig.json          # TypeScript config
 │       └── index.html             # HTML template
 │
-├── docs/
-│   └── monorepo-migration.md      # Migration documentation
+├── tooling/
+│   ├── eslint-config/             # Shared ESLint configuration
+│   │   ├── base.js                # Base ESLint config
+│   │   ├── next.js                # Next.js specific config
+│   │   ├── react-internal.js      # React internal config
+│   │   ├── package.json           # Package configuration
+│   │   └── README.md              # Documentation
+│   │
+│   └── typescript-config/         # Shared TypeScript configuration
+│       ├── base.json              # Base TypeScript config
+│       ├── nextjs.json            # Next.js specific config
+│       ├── react-library.json     # React library config
+│       └── package.json           # Package configuration
 │
 ├── tutorial/                      # Educational content
 │   ├── README.md                  # Tutorial overview
@@ -121,13 +145,16 @@ cls-extended/
 - Purpose: Main plugin implementation
 - Type: Public (publishable to npm)
 - Version: 1.0.0
-- Exports: 9 entry points (main + 7 build tools + API)
+- Exports: Multiple entry points (main, adapters, core modules, API)
 
 **examples/ (Private)**
 
 - Purpose: Demonstration and integration testing
 - Type: Private (not publishable)
-- Dependencies: Uses `workspace:*` protocol for local plugin
+- Examples:
+  - `nextjs/`: Next.js 16 + App Router demo
+  - `vite-react/`: Vite + React 19 demo
+- Dependencies: Uses published cls-extended package from npm
 
 ### 2. Plugin Architecture
 
@@ -152,12 +179,13 @@ cls-extended/
 
 **Component Responsibilities:**
 
-- **index.ts**: Main plugin factory using `createUnplugin()`
+- **index.ts**: Main entry point and exports
+- **unplugin-factory.ts**: Main plugin factory using `createUnplugin()`
 - **api.ts**: Runtime tw() function with fallback behavior
-- **cls-extended/options.ts**: Configuration resolution and validation
-- **cls-extended/parser.ts**: AST parsing and tw() call detection
-- **cls-extended/transform.ts**: Code transformation and generation
-- **[tool].ts**: Build tool-specific exports (thin wrappers)
+- **core/options.ts**: Configuration resolution and validation
+- **core/parser.ts**: AST parsing and tw() call detection
+- **core/transform.ts**: Code transformation and generation
+- **adapters/[tool].ts**: Build tool-specific integrations
 
 ### 3. File Naming Conventions
 
@@ -185,20 +213,20 @@ cls-extended/
 
 **Multi-Entry Point Package:**
 
-The plugin uses a "shallow" entry mode with 9 separate entry points:
+The plugin uses a "shallow" entry mode with multiple entry points:
 
 ```json
 {
   "exports": {
-    ".": "./dist/index.js", // Main plugin factory
+    ".": "./dist/index.js", // Main entry point
+    "./adapters/vite": "./dist/adapters/vite.js", // Vite integration
+    "./adapters/webpack": "./dist/adapters/webpack.js", // Webpack integration
     "./api": "./dist/api.js", // Runtime tw() function
-    "./vite": "./dist/vite.js", // Vite integration
-    "./webpack": "./dist/webpack.js", // Webpack integration
-    "./rollup": "./dist/rollup.js", // Rollup integration
-    "./rolldown": "./dist/rolldown.js", // Rolldown integration
-    "./esbuild": "./dist/esbuild.js", // esbuild integration
-    "./rspack": "./dist/rspack.js", // Rspack integration
-    "./farm": "./dist/farm.js" // Farm integration
+    "./core/options": "./dist/core/options.js", // Configuration
+    "./core/parser": "./dist/core/parser.js", // Parser
+    "./core/transform": "./dist/core/transform.js", // Transform
+    "./unplugin-factory": "./dist/unplugin-factory.js", // Factory
+    "./package.json": "./package.json"
   }
 }
 ```
@@ -214,30 +242,25 @@ The plugin uses a "shallow" entry mode with 9 separate entry points:
 
 ```typescript
 // In build config
-import twClassname from "cls-extended/vite";
+import twClassname from "cls-extended/adapters/vite";
 
 // In application code
 import { tw } from "cls-extended/api";
 ```
 
-### 5. Workspace Protocol
+### Workspace Protocol
 
 **Example Package Dependencies:**
 
 ```json
 {
   "dependencies": {
-    "cls-extended": "workspace:*"
+    "cls-extended": "^1.1.1"
   }
 }
 ```
 
-**Benefits:**
-
-- Always uses local version during development
-- Automatic linking without manual npm link
-- Proper version resolution on publish
-- Turborepo understands dependencies
+**Note**: Examples use the published npm package rather than workspace protocol for realistic testing.
 
 ### 6. Transform Pattern
 
@@ -322,7 +345,7 @@ pnpm install
 pnpm --filter cls-extended build
 
 # Run example
-pnpm --filter @examples/vite-react dev
+pnpm --filter vite-react dev
 
 # Run tests
 pnpm test

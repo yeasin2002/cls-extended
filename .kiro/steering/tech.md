@@ -81,11 +81,11 @@ packages:
 
 - Vite (primary target)
 - Webpack (enterprise support)
-- Rollup (library builds)
-- Rolldown (next-gen Rollup)
-- esbuild (speed-focused)
-- Rspack (Rust-based Webpack)
-- Farm (Rust-based Vite)
+- Rollup (planned)
+- Rolldown (planned)
+- esbuild (planned)
+- Rspack (planned)
+- Farm (planned)
 
 **API Usage**:
 
@@ -174,8 +174,12 @@ export default defineConfig({
   entry: [
     "src/index.ts",
     "src/api.ts",
-    "src/vite.ts",
-    // ... 7 build tool exports
+    "src/unplugin-factory.ts",
+    "src/adapters/vite.ts",
+    "src/adapters/webpack.ts",
+    "src/core/options.ts",
+    "src/core/parser.ts",
+    "src/core/transform.ts",
   ],
   format: ["esm"],
   clean: true,
@@ -372,7 +376,7 @@ pnpm format
 pnpm --filter cls-extended build
 
 # Run example in dev mode
-pnpm --filter @examples/vite-react dev
+pnpm --filter vite-react dev
 
 # Run plugin tests (single run)
 pnpm --filter cls-extended test --run
@@ -397,7 +401,7 @@ pnpm install
 pnpm --filter cls-extended build
 
 # Start example (requires plugin build first)
-pnpm --filter @examples/vite-react dev
+pnpm --filter vite-react dev
 
 # Run tests in watch mode
 pnpm --filter cls-extended test
