@@ -22,7 +22,7 @@ Performs AST-based transformations during build process, converting object-based
 
 ```tsx
 // Input (developer writes)
-tw("text-xl font-bold", { md: "text-2xl", lg: "text-3xl" });
+cls("text-xl font-bold", { md: "text-2xl", lg: "text-3xl" });
 
 // Output (compiled at build time)
 ("text-xl font-bold md:text-2xl lg:text-3xl");
@@ -80,19 +80,19 @@ npm install -D cls-extended
 
 ```typescript
 // vite.config.ts
-import twClassname from "cls-extended/adapters/vite";
+import clsExtended from "cls-extended/adapters/vite";
 
 export default defineConfig({
-  plugins: [twClassname()],
+  plugins: [clsExtended()],
 });
 ```
 
 ```tsx
 // Component usage
-import { tw } from "cls-extended/api";
+import { cls } from "cls-extended";
 
 function Component() {
-  return <div className={tw("p-4", { md: "p-6", lg: "p-8" })}>Content</div>;
+  return <div className={cls("p-4", { md: "p-6", lg: "p-8" })}>Content</div>;
 }
 ```
 
@@ -111,7 +111,7 @@ cls-extended/
 │       │   │   ├── parser.ts      # AST parsing (Babel)
 │       │   │   └── transform.ts   # Code transformation
 │       │   ├── index.ts           # Main entry point
-│       │   ├── api.ts             # Runtime tw() function
+│       │   ├── api.ts             # Runtime cls() function
 │       │   └── unplugin-factory.ts # Unplugin factory
 │       ├── tests/
 │       │   ├── fixtures/          # Test input files
@@ -180,7 +180,7 @@ cls-extended/
 1. Turborepo for intelligent caching and parallel execution
 2. pnpm workspaces for dependency management
 3. Shared tooling configs to ensure consistency
-4. Examples link to published npm package (not workspace)
+4. Examples use workspace references during development
 
 ## 3. Technology Stack
 
