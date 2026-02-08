@@ -2,253 +2,187 @@
 
 [![npm version](https://img.shields.io/npm/v/cls-extended.svg)](https://www.npmjs.com/package/cls-extended)
 [![npm downloads](https://img.shields.io/npm/dm/cls-extended.svg)](https://www.npmjs.com/package/cls-extended)
-[![semantic-release: angular](https://img.shields.io/badge/semantic--release-angular-e10079?logo=semantic-release)](https://github.com/semantic-release/semantic-release)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-Zero-runtime Tailwind CSS responsive utilities with better developer experience.
+> Zero-runtime Tailwind CSS responsive utilities with better developer experience.
 
-## Features
+Transform responsive Tailwind classes at build time with cleaner syntax and zero runtime overhead.
 
-- ✅ **Zero Runtime Overhead** - Compiles to static strings at build time
-- ✅ **Better DX** - Cleaner responsive class syntax
-- ✅ **Type Safe** - Full TypeScript support
-- ✅ **Universal** - Works with Vite, Webpack, Rollup, esbuild, Rspack, Rolldown, and Farm
+## ✨ Features
 
-## How It Works
+- ⚡ **Zero Runtime Overhead** - Build-time transformations (0KB runtime for most tools, tiny runtime for Next.js 16+)
+- 🎨 **Better DX** - Cleaner, more maintainable responsive syntax
+- 🔒 **Type Safe** - Full TypeScript support with autocomplete
+- 🔧 **Universal** - Works with Vite, Webpack, and more
+- 📦 **Tiny** - ~8KB package
 
-Write this:
+## 🚀 Quick Start
 
-```tsx
-tw("text-xl font-bold", { md: "text-2xl", lg: "text-3xl" });
-```
-
-Get this at build time:
-
-```tsx
-"text-xl font-bold md:text-2xl lg:text-3xl";
-```
-
-No runtime overhead, just static strings.
-
-## Installation
+### Installation
 
 ```bash
-npm i -D cls-extended
+npm install -D cls-extended
+# or
+pnpm add -D cls-extended
+# or
+yarn add -D cls-extended
 ```
 
-<details>
-<summary>Vite</summary><br>
+### Setup
+
+**Vite:**
 
 ```ts
 // vite.config.ts
-import TwClassname from "cls-extended/vite";
+import clsExtended from "cls-extended/adapters/vite";
 
 export default defineConfig({
-  plugins: [TwClassname()],
+  plugins: [clsExtended()],
 });
 ```
 
-<br></details>
-
-<details>
-<summary>Next.js</summary><br>
-
-**Next.js 15 and earlier (Webpack)**
-
-For build-time transformation with zero runtime overhead:
+**Webpack:**
 
 ```js
-// next.config.mjs
-import clsExtended from "@cls-extended/core/adapters/webpack";
+// webpack.config.js
+import clsExtended from "cls-extended/adapters/webpack";
 
 export default {
-  webpack: (config) => {
-    config.plugins = config.plugins || [];
-    config.plugins.push(clsExtended());
-    return config;
-  },
+  plugins: [clsExtended()],
 };
 ```
 
-**Next.js 16+ (Turbopack)**
-
-Next.js 16 uses Turbopack by default, which doesn't yet support unplugin transformations. Use the runtime `cls()` function:
-
-```js
-// next.config.mjs
-export default {
-  // Turbopack is enabled by default
-  turbopack: {},
-};
-```
+### Usage
 
 ```tsx
-// In your components
-import { cls } from "@cls-extended/core/api";
-
-export default function Component() {
-  return (
-    <div className={cls("p-4", { md: "p-6", lg: "p-8" })}>
-      Content
-    </div>
-  );
-}
-```
-
-The `cls()` function provides runtime transformation with minimal overhead (~0.5KB). When unplugin adds Turbopack support, your code will automatically benefit from build-time optimization.
-
-See [examples/nextjs](./examples/nextjs) for a complete working example.
-
-<br></details>
-
-
-
-
-## Usage
-
-```tsx
-import { tw } from "cls-extended";
+import { cls } from "cls-extended";
 
 function Component() {
   return (
     <div
-      className={tw("container mx-auto px-4", {
-        md: "px-6 max-w-4xl",
-        lg: "px-8 max-w-6xl",
-        xl: "max-w-7xl",
+      className={cls("text-xl font-bold", {
+        md: "text-2xl",
+        lg: "text-3xl",
       })}
     >
-      Content
+      Responsive Text
     </div>
   );
 }
 ```
 
-The `tw()` function is compiled away at build time, leaving only the static class string.
+**Compiles to:**
 
-## Configuration
-
-```ts
-TwClassname({
-  // Files to include (default: JS/TS/JSX/TSX files)
-  include: [/\.[jt]sx?$/],
-
-  // Files to exclude (default: node_modules)
-  exclude: [/node_modules/],
-
-  // Custom Tailwind breakpoints
-  breakpoints: {
-    sm: "640px",
-    md: "768px",
-    lg: "1024px",
-    xl: "1280px",
-    "2xl": "1536px",
-  },
-});
+```tsx
+<div className="text-xl font-bold md:text-2xl lg:text-3xl">
+  Responsive Text
+</div>
 ```
 
-## Development
+## 📖 How It Works
+
+The plugin uses AST transformation to detect `tw()` calls during the build process and compiles them into static Tailwind class strings:
+
+1. **Build Time**: Plugin scans your code for `tw()` calls
+2. **AST Transform**: Parses and transforms using Babel
+3. **Output**: Generates standard Tailwind classes with zero runtime code
+
+This means:
+- ✅ No runtime JavaScript added to your bundle
+- ✅ Transformation happens once during build
+- ✅ Production code contains only plain strings
+- ✅ Full compatibility with Tailwind's JIT mode
+
+## 📚 Documentation
+
+For detailed configuration, advanced usage, and more examples, see the [package documentation](./packages/cls-extended/README.md).
+
+## 🛠️ Development
+
+This is a monorepo managed with [pnpm](https://pnpm.io/) and [Turborepo](https://turbo.build/).
+
+### Setup
 
 ```bash
 # Install dependencies
 pnpm install
+
+# Build all packages
+pnpm build
 
 # Run tests
 pnpm test
 
-# Build the plugin
-pnpm build
-
-# Development mode with watch
-pnpm dev
-
-# Type checking
+# Type check
 pnpm typecheck
 
-# Linting
+# Lint
 pnpm lint
-pnpm lint:fix
 ```
 
-## How It Works
+### Project Structure
 
-The plugin uses AST transformation to detect `tw()` calls during the build process and compiles them into static Tailwind class strings. This means:
+```
+cls-extended/
+├── packages/
+│   └── cls-extended/       # Main plugin package
+├── examples/
+│   ├── nextjs/            # Next.js example
+│   └── vite-react/        # Vite + React example
+└── .github/
+    └── workflows/         # CI/CD automation
+```
 
-1. No runtime JavaScript is added to your bundle
-2. The transformation happens once during build
-3. Your production code contains only plain strings
-4. Full compatibility with Tailwind's JIT mode and purging
-
-See [PROJECT-DETAILS.md](./PROJECT-DETAILS.md) for complete implementation details.
-
-## Contributing
-
-We welcome contributions! Please see our contributing guidelines:
-
-### Development Setup
+### Development Workflow
 
 ```bash
-# Clone the repository
-git clone https://github.com/yeasin2002/cls-extended-protoype.git
-cd cls-extended-protoype
-
-# Install dependencies
-pnpm install
-
-# Build the package
+# Build the plugin
 pnpm --filter cls-extended build
 
-# Run tests
-pnpm --filter cls-extended test
+# Run example in dev mode
+pnpm --filter vite-react dev
 
 # Run tests in watch mode
-pnpm --filter cls-extended test --watch
+pnpm --filter cls-extended test
 ```
+
+## 🤝 Contributing
+
+Contributions are welcome! Please follow these guidelines:
 
 ### Commit Convention
 
-This project uses [Conventional Commits](https://www.conventionalcommits.org/) for automated releases:
+This project uses [Conventional Commits](https://www.conventionalcommits.org/):
 
 - `feat:` - New features (minor version bump)
 - `fix:` - Bug fixes (patch version bump)
-- `docs:` - Documentation changes (no release)
-- `chore:` - Maintenance tasks (no release)
+- `docs:` - Documentation changes
+- `chore:` - Maintenance tasks
 - `BREAKING CHANGE:` - Breaking changes (major version bump)
-
-Example:
-```bash
-git commit -m "feat: add support for custom breakpoints"
-git commit -m "fix: resolve parsing error in nested JSX"
-```
 
 ### Release Process
 
-Releases are fully automated using [semantic-release](https://github.com/semantic-release/semantic-release):
+Releases are automated via GitHub Actions. Simply push a version tag:
 
-**Three ways to release:**
+```bash
+# Create and push a tag
+git tag v1.0.1
+git push origin v1.0.1
+```
 
-1. **Automatic** - Push commits to `main` branch
-2. **Tag-Based** - Push a version tag (`v1.2.3`)
-3. **Manual** - Trigger via GitHub Actions UI
+The workflow will automatically:
+- ✨ Publish to npm with provenance
+- 📦 Create GitHub release with changelog
+- 📝 Update CHANGELOG.md
 
-All releases include:
-- ✨ Auto-generated release notes with emojis
-- 📦 Automatic npm publishing
-- 🏷️ GitHub releases with assets
-- 📝 Updated CHANGELOG.md
-- 💬 Automatic issue/PR comments
+See [RELEASE-IT-GUIDE.md](./RELEASE-IT-GUIDE.md) for more details.
 
-See [Release Quick Start](./docs/RELEASE-QUICK-START.md) or [Full Release Guide](./docs/RELEASE-WORKFLOWS.md) for details.
+## 📄 License
 
-## License
+[MIT](./LICENSE) License © 2025-PRESENT [Yeasin](https://github.com/yeasin2002)
 
-[MIT](./LICENSE) License © 2025-PRESENT [Kevin Deng](https://github.com/sxzz)
+## 🔗 Links
 
-<!-- Badges -->
-
-[npm-version-src]: https://img.shields.io/npm/v/cls-extended.svg
-[npm-version-href]: https://npmjs.com/package/cls-extended
-[npm-downloads-src]: https://img.shields.io/npm/dm/cls-extended
-[npm-downloads-href]: https://www.npmcharts.com/compare/cls-extended?interval=30
-[unit-test-src]: https://github.com/sxzz/cls-extended/actions/workflows/unit-test.yml/badge.svg
-[unit-test-href]: https://github.com/sxzz/cls-extended/actions/workflows/unit-test.yml
+- [npm Package](https://www.npmjs.com/package/cls-extended)
+- [GitHub Repository](https://github.com/yeasin2002/cls-extended)
+- [Issues](https://github.com/yeasin2002/cls-extended/issues)
