@@ -34,7 +34,7 @@ cls("text-xl font-bold", { md: "text-2xl", lg: "text-3xl" });
 - **Better DX**: Reduces code verbosity by ~40% for responsive designs
 - **Type Safe**: Full TypeScript support with intelligent autocomplete
 - **Universal Compatibility**: Single plugin for 7+ build tools
-- **Source Maps**: Maintains accurate debugging information
+
 
 ### Build Tool Support
 

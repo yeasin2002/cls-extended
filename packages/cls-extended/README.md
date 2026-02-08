@@ -38,18 +38,7 @@ export default defineConfig({
 });
 ```
 
-### Webpack
-
-```js
-// webpack.config.js
-import clsExtended from "cls-extended/adapters/webpack";
-
-export default {
-  plugins: [clsExtended()],
-};
-```
-
-### Next.js (Webpack)
+### Next.js (Webpack) - Before Next.js 16
 
 ```js
 // next.config.mjs
@@ -63,6 +52,39 @@ export default {
   },
 };
 ```
+
+### Next.js (Webpack) - After Next.js 16
+
+```js
+// next.config.mjs
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
+  // Note: cls-extended plugin integration for Next.js 16+ with Turbopack is not yet supported.
+  // For now, use the runtime cls() function directly.
+  // leave the config as it is! 
+  turbopack: {},
+};
+
+export default nextConfig;
+```
+
+
+<details>
+  <summary> <h3 style="display: inline;" > Check Other Adapters (rspack, rolldown, farm etc.)  </h3> </summary>
+
+
+### Webpack
+
+```js
+// webpack.config.js
+import clsExtended from "cls-extended/adapters/webpack";
+
+export default {
+  plugins: [clsExtended()],
+};
+```
+
 
 ### Rollup
 
@@ -96,6 +118,10 @@ export default {
   plugins: [clsExtended()],
 };
 ```
+
+
+</details>
+
 
 ## Usage
 
