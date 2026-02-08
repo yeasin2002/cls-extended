@@ -5,3 +5,7 @@ pre-commit:
       run: pnpm lint
     - name: typecheck
       run: pnpm typecheck
+    - name: format
+      run: pnpm format
+    - name: build cls-extended pkg
+      run: pnpm --filter cls-extended build
