@@ -377,26 +377,20 @@ const classes = cls("p-4", {
 
 ## Performance
 
-### Bundle Size
+### Package Size
 
-- **Package**: ~8.26 KB
-- **Gzipped**: ~3.5 KB
-- **Runtime**: 0 KB (build-time only)
+[![npm bundle size](https://img.shields.io/bundlephobia/min/cls-extended?style=flat-square&label=Package%20Size)](https://bundlephobia.com/package/cls-extended)
+[![npm bundle size (gzip)](https://img.shields.io/bundlephobia/minzip/cls-extended?style=flat-square&label=Gzipped)](https://bundlephobia.com/package/cls-extended)
+[![npm package minimized gzipped size](https://badgen.net/bundlephobia/minzip/cls-extended)](https://bundlephobia.com/package/cls-extended)
+
+> **Runtime Impact:** 0 KB for Vite/Webpack (build-time transformation) · ~0.5 KB for Next.js 16+ Turbopack (runtime fallback)
 
 ### Build Performance
 
 - **File transformation**: <1ms per file
-- **AST parsing**: ~0.3ms per file
+- **AST parsing**: ~0.3ms per file  
 - **Source map generation**: ~0.1ms per file
 - **Memory usage**: <10MB for typical projects
-
-### Comparison
-
-| Approach              | Bundle Impact | Runtime Cost | DX Score |
-| --------------------- | ------------- | ------------ | -------- |
-| Plain Tailwind        | 0 KB          | None         | 6/10     |
-| Runtime `clsx`        | ~1 KB         | Low          | 7/10     |
-| **cls-extended**      | **0 KB**      | **None**     | **9/10** |
 
 ## Examples
 
@@ -405,43 +399,12 @@ Check out the working examples:
 - [Vite + React](../../examples/vite-react) - Basic Vite setup
 - [Next.js](../../examples/nextjs) - Next.js integration
 
-## Troubleshooting
 
-### Plugin not transforming classes
 
-**Check:**
-
-- Plugin is properly configured in build tool config
-- Files are included in the plugin's `include` pattern
-- Using the correct import: `import { cls } from "cls-extended"`
-
-### TypeScript errors
-
-**Solution:**
-
-Ensure TypeScript can find the types:
-
-```json
-// tsconfig.json
-{
-  "compilerOptions": {
-    "moduleResolution": "bundler",
-    "types": ["cls-extended"]
-  }
-}
-```
-
-### Build errors
-
-**Check:**
-
-- Node.js version >= 20.19.0
-- All dependencies installed: `pnpm install`
-- Plugin version matches your build tool version
 
 ## Contributing
 
-Contributions are welcome! See the [root README](../../README.md) for development setup and contribution guidelines.
+Contributions are welcome! See the [Root README](../../README.md) for development setup and contribution guidelines.
 
 ## License
 

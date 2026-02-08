@@ -81,9 +81,9 @@ function Component() {
 
 ## 📖 How It Works
 
-The plugin uses AST transformation to detect `tw()` calls during the build process and compiles them into static Tailwind class strings:
+The plugin uses AST transformation to detect `cls()` calls during the build process and compiles them into static Tailwind class strings:
 
-1. **Build Time**: Plugin scans your code for `tw()` calls
+1. **Build Time**: Plugin scans your code for `cls()` calls
 2. **AST Transform**: Parses and transforms using Babel
 3. **Output**: Generates standard Tailwind classes with zero runtime code
 
@@ -129,8 +129,6 @@ cls-extended/
 ├── examples/
 │   ├── nextjs/            # Next.js example
 │   └── vite-react/        # Vite + React example
-└── .github/
-    └── workflows/         # CI/CD automation
 ```
 
 ### Development Workflow
@@ -160,23 +158,6 @@ This project uses [Conventional Commits](https://www.conventionalcommits.org/):
 - `chore:` - Maintenance tasks
 - `BREAKING CHANGE:` - Breaking changes (major version bump)
 
-### Release Process
-
-Releases are automated via GitHub Actions. Simply push a version tag:
-
-```bash
-# Create and push a tag
-git tag v1.0.1
-git push origin v1.0.1
-```
-
-The workflow will automatically:
-- ✨ Publish to npm with provenance
-- 📦 Create GitHub release with changelog
-- 📝 Update CHANGELOG.md
-
-See [RELEASE-IT-GUIDE.md](./RELEASE-IT-GUIDE.md) for more details.
-
 ## 📄 License
 
 [MIT](./LICENSE) License © 2025-PRESENT [Yeasin](https://github.com/yeasin2002)
@@ -184,5 +165,4 @@ See [RELEASE-IT-GUIDE.md](./RELEASE-IT-GUIDE.md) for more details.
 ## 🔗 Links
 
 - [npm Package](https://www.npmjs.com/package/cls-extended)
-- [GitHub Repository](https://github.com/yeasin2002/cls-extended)
 - [Issues](https://github.com/yeasin2002/cls-extended/issues)
