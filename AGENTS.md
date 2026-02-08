@@ -2,365 +2,230 @@
 inclusion: always
 ---
 
-# AI Agent Guidelines for cls-extended
+# Product Overview
 
-## 1. Product Overview
+cls-extended is a zero-runtime Tailwind CSS responsive utilities transformer that improves developer experience through cleaner syntax.
 
-### What is cls-extended?
+## Core Value Proposition
 
-cls-extended is a production-ready, universal build plugin that transforms responsive Tailwind CSS syntax at build time with zero runtime overhead. Built on the unplugin framework, it provides seamless compatibility across all major JavaScript build tools.
+- Build-time transformation of responsive Tailwind classes (0KB runtime for Vite/Webpack)
+- Cleaner, more maintainable responsive syntax that reduces code verbosity by ~40%
+- Universal compatibility with major bundlers (Vite, Webpack, Rollup, esbuild, Rspack, Rolldown, Farm)
 
-**Status**: ✅ Production Ready (v1.0.0)  
-**Architecture**: Turborepo monorepo with pnpm workspaces  
-**Repository**: https://github.com/yeasin2002/cls-extended-protoype
+## Key Features
 
-### Core Functionality
+- Zero runtime overhead through AST-based build-time transformations
+- Type-safe with full TypeScript support and autocomplete
+- Tiny package size (~8KB)
+- Works with Tailwind JIT mode and all utility classes
 
-Performs AST-based transformations during build process, converting object-based syntax into standard Tailwind responsive classes at compile time.
+## How It Works
 
-**Example:**
+The `cls()` function accepts base classes and a responsive object:
 
 ```tsx
-// Input (developer writes)
-cls("text-xl font-bold", { md: "text-2xl", lg: "text-3xl" });
-
-// Output (compiled at build time)
-("text-xl font-bold md:text-2xl lg:text-3xl");
-```
-
-### Key Features
-
-- **Zero Runtime Overhead**: All transformations at build time
-- **Better DX**: Reduces code verbosity by ~40% for responsive designs
-- **Type Safe**: Full TypeScript support with intelligent autocomplete
-- **Universal Compatibility**: Single plugin for 7+ build tools
-
-
-### Build Tool Support
-
-- ✅ Vite
-- ✅ Webpack
-- 🚧 Rollup (planned)
-- 🚧 Rolldown (planned)
-- 🚧 esbuild (planned)
-- 🚧 Rspack (planned)
-- 🚧 Farm (planned)
-
-### Package Details
-
-- **Name**: cls-extended
-- **Version**: 1.0.0
-- **Bundle Size**: ~8.26 KB (gzipped: ~3.5 KB)
-- **Runtime Impact**: 0 KB (build-time only)
-- **Dependencies**: 3 runtime dependencies (minimal)
-
-### Use Cases
-
-**Ideal For:**
-
-- Extensive responsive designs
-- Teams prioritizing code maintainability
-- Applications requiring zero runtime overhead
-- Multi-framework projects (React, Vue, Svelte)
-- Design systems with consistent breakpoint usage
-
-**Benefits:**
-
-1. Readability: Object syntax clearer than long class strings
-2. Maintainability: Easier to modify responsive behavior
-3. Type Safety: Compile-time validation of breakpoints
-4. Consistency: Enforces consistent breakpoint usage
-5. Performance: Zero runtime cost
-
-### Quick Start
-
-```bash
-npm install -D cls-extended
-```
-
-```typescript
-// vite.config.ts
-import clsExtended from "cls-extended/adapters/vite";
-
-export default defineConfig({
-  plugins: [clsExtended()],
+cls("text-xl font-bold", {
+  md: "text-2xl",
+  lg: "text-3xl",
 });
 ```
 
-```tsx
-// Component usage
-import { cls } from "cls-extended";
+This compiles at build time to:
 
-function Component() {
-  return <div className={cls("p-4", { md: "p-6", lg: "p-8" })}>Content</div>;
-}
+```tsx
+"text-xl font-bold md:text-2xl lg:text-3xl";
 ```
 
-## 2. Project Structure
+The plugin uses Babel parser to detect `cls()` calls, transforms them via AST manipulation, and replaces them with static strings before the code reaches production.
 
-### Monorepo Layout
+
+
+
+
+# Project Structure
+
+## Monorepo Layout
 
 ```
 cls-extended/
-├── packages/
-│   └── cls-extended/              # Main plugin package (PUBLISHABLE)
-│       ├── src/
-│       │   ├── adapters/          # Build tool adapters (vite.ts, webpack.ts)
-│       │   ├── core/              # Core transformation logic
-│       │   │   ├── options.ts     # Configuration system
-│       │   │   ├── parser.ts      # AST parsing (Babel)
-│       │   │   └── transform.ts   # Code transformation
-│       │   ├── index.ts           # Main entry point
-│       │   ├── api.ts             # Runtime cls() function
-│       │   └── unplugin-factory.ts # Unplugin factory
-│       ├── tests/
-│       │   ├── fixtures/          # Test input files
-│       │   ├── __snapshots__/     # Vitest snapshots
-│       │   └── rollup.test.ts     # Unit tests (8 tests)
-│       ├── dist/                  # Build output (generated)
-│       ├── package.json           # Package configuration
-│       ├── tsconfig.json          # TypeScript config
-│       ├── tsdown.config.ts       # Build configuration
-│       └── README.md              # Package documentation
-│       ├── eslint-config/             # Shared ESLint configuration
-│       ├── base.js
-│       ├── next.js
-│       ├── react-internal.js
-│       └── package.json
-│       └── typescript-config/         # Shared TypeScript configuration
-│       ├── base.json
-│       ├── nextjs.json
-│       ├── react-library.json
-│       └── package.json
-│
-├── examples/
-│   ├── nextjs/                    # Next.js demo (PRIVATE)
-│   │   ├── app/
-│   │   │   ├── page.tsx
-│   │   │   ├── layout.tsx
-│   │   │   └── globals.css
-│   │   ├── package.json
-│   │   ├── next.config.ts
-│   │   └── postcss.config.mjs
-│   └── vite-react/                # Vite + React demo (PRIVATE)
-│       ├── src/
-│       │   ├── App.tsx
-│       │   ├── main.tsx
-│       │   └── index.css
-│       ├── package.json
-│       ├── vite.config.ts
-│       └── index.html
-│
-├── .github/
-│   ├── workflows/                 # CI/CD automation
-│   │   ├── ci.yml                 # Main CI pipeline
-│   │   ├── unit-test.yml          # Multi-version testing
-│   │   ├── release.yml            # NPM publishing
-│   │   ├── release-commit.yml     # Preview publishing
-│   │   └── turborepo-cache.yml    # Cache demonstration
-│   └── [documentation files]
-│
-├── package.json                   # Root package (PRIVATE)
-├── pnpm-workspace.yaml            # Workspace configuration
-├── turbo.json                     # Turborepo configuration
-├── tsconfig.json                  # Base TypeScript config
-└── README.md                      # Project overview
+├── .kiro/                    # Kiro AI assistant configuration
+│   └── steering/            # AI steering rules
+├── packages/                # Shared packages
+│   ├── cls-extended/        # Main plugin package
+│   ├── eslint-config/       # Shared ESLint configs
+│   └── typescript-config/   # Shared TypeScript configs
+├── examples/                # Example implementations
+│   ├── nextjs/             # Next.js example
+│   └── vite-react/         # Vite + React example
+└── apps/                    # Applications (currently empty)
 ```
 
-### Architecture Patterns
+## Main Package Structure
 
-**Workspace Structure:**
-
-- **packages/**: Publishable packages (cls-extended) and Internal shared configurations (tooling)
-- **examples/**: Demo applications (private)
-- **tutorial/**: Documentation and guides
-
-**Key Principles:**
-
-1. Turborepo for intelligent caching and parallel execution
-2. pnpm workspaces for dependency management
-3. Shared tooling configs to ensure consistency
-4. Examples use workspace references during development
-
-## 3. Technology Stack
-
-### Core Dependencies
-
-#### unplugin (v3.0.0)
-
-**Purpose**: Universal plugin framework  
-**Why**: Enables single codebase for 7+ build tools
-
-**Features:**
-
-- Abstract build tool API
-- Virtual modules support
-- Load/transform hooks
-- Source map handling
-
-#### @babel/parser (v7.26.3)
-
-**Purpose**: AST parsing  
-**Why**: Industry standard for JavaScript/TypeScript parsing
-
-**Features:**
-
-- JSX/TSX support
-- Source location tracking
-- Plugin system
-- Error recovery
-
-#### magic-string (v0.30.17)
-
-**Purpose**: String manipulation with source maps  
-**Why**: Efficient code transformation with accurate debugging
-
-**Features:**
-
-- Fast string replacement
-- Source map generation
-- Efficient memory usage
-- Zero-copy operations
-
-### Build Tools
-
-#### tsdown (v3.0.0)
-
-**Purpose**: TypeScript bundler  
-**Why**: Modern, fast, excellent ESM output
-
-**Features:**
-
-- Multiple entry points
-- Declaration generation
-- Tree-shaking
-- Fast incremental builds
-
-**Configuration:**
-
-```typescript
-// tsdown.config.ts
-export default {
-  entry: "src/**/*.ts",
-  format: "esm",
-  dts: true,
-  clean: true,
-};
+```
+packages/cls-extended/
+├── src/
+│   ├── adapters/           # Bundler-specific adapters
+│   │   ├── vite.ts
+│   │   └── webpack.ts
+│   ├── core/               # Core transformation logic
+│   │   ├── options.ts      # Plugin options
+│   │   ├── parser.ts       # AST parsing
+│   │   └── transform.ts    # Code transformation
+│   ├── api.ts              # Public API (cls function)
+│   ├── unplugin-factory.ts # Universal plugin factory
+│   └── index.ts            # Main entry point
+├── dist/                   # Build output (gitignored)
+├── tests/                  # Test files
+└── package.json
 ```
 
-#### Turborepo (v3.10.0)
+## Configuration Files
 
-**Purpose**: Monorepo task orchestration  
-**Why**: Intelligent caching (75% faster rebuilds)
+### Root Level
 
-**Features:**
+- `turbo.json` - Turborepo task configuration
+- `pnpm-workspace.yaml` - Workspace and catalog definitions
+- `package.json` - Root scripts and shared devDependencies
+- `.gitignore` - Git ignore patterns
+- `.editorconfig` - Editor configuration
+- `.npmrc` - npm/pnpm configuration
 
-- Task dependency graph
-- Parallel execution
-- Remote caching
-- Incremental builds
+### Package Level
 
-**Performance:**
+- `package.json` - Package metadata, scripts, dependencies
+- `tsconfig.json` - TypeScript configuration (extends shared config)
+- `eslint.config.ts` - ESLint configuration (extends shared config)
+- `tsdown.config.ts` - Build configuration
 
-- Cold build: ~2.0s
-- Warm build: ~0.5s (with cache)
+## Shared Configurations
 
-### Testing Framework
+### ESLint Config Package
 
-#### Vitest (v3.1.1)
+```
+packages/eslint-config/
+├── base.js              # Base config for all packages
+├── next.js              # Next.js specific config
+└── react-internal.js    # React library config
+```
 
-**Purpose**: Unit testing  
-**Why**: Vite-native, fast, excellent DX
+### TypeScript Config Package
 
-**Current Coverage:**
+```
+packages/typescript-config/
+├── base.json            # Base TypeScript config
+├── nextjs.json          # Next.js specific config
+└── react-library.json   # React library config
+```
 
-- 8 tests passing
-- 100% coverage
-- Snapshot testing
-- Watch mode
+## Build Outputs
 
-**Performance:**
+- `dist/` - Compiled JavaScript and type definitions (main package)
+- `.next/` - Next.js build output (examples)
+- `.turbo/` - Turborepo cache and logs
+- `node_modules/` - Dependencies (per package and root)
 
-- Test suite: ~200ms
-- Coverage: ~50ms
+## Key Conventions
 
-### Code Quality
+### File Naming
 
-#### ESLint (v9.39.2)
-
-**Configuration**: @sxzz/eslint-config preset  
-**Purpose**: Linting and style enforcement
-
-**Rules:**
-
-- TypeScript best practices
-- Import/export conventions
-- Code complexity limits
-- Unused variable detection
-
-#### Prettier (v3.8.1)
-
-**Configuration**: @sxzz/prettier-config preset  
-**Purpose**: Code formatting
-
-**Formats:**
-
-- TypeScript/JavaScript
-- JSON
-- Markdown
-- YAML
-
-#### TypeScript (v5.x)
-
-**Mode**: Strict  
-**Purpose**: Type checking
-
-**Checks:**
-
-- Type safety
-- Unused locals
-- Implicit any detection
-- Module resolution
+- TypeScript source files use `.ts` extension
+- React components use `.tsx` extension
+- Config files use appropriate extensions (`.js`, `.ts`, `.json`, `.yaml`)
+- Test files use `.test.ts` or `.spec.ts` suffix
 
 ### Module System
 
-**Decision**: ESM-only package
+- All packages use ESM (`"type": "module"`)
+- Imports use explicit extensions where required
+- Exports defined via `exports` field in package.json
 
-**Rationale:**
+### Workspace References
 
-- Modern standard
-- Better tree-shaking
-- Native browser support
-- Future-proof
+- Shared configs referenced via `workspace:*` protocol
+- Catalog dependencies referenced via `catalog:` protocol
+- Example: `"@repo/eslint-config": "workspace:*"`
 
-**Configuration:**
+## Development Workflow
 
-```json
-{
-  "type": "module",
-  "exports": {
-    ".": "./dist/index.js",
-    "./adapters/*": "./dist/adapters/*.js",
-    "./api": "./dist/api.js"
-  }
-}
-```
+1. Make changes in `packages/cls-extended/src/`
+2. Build with `pnpm --filter cls-extended build`
+3. Test in examples with `pnpm --filter vite-react dev`
+4. Run tests with `pnpm --filter cls-extended test`
+5. Type check with `pnpm typecheck`
+6. Lint with `pnpm lint`
 
-**Target:**
+## Distribution
 
-- ESNext
-- Bundler module resolution
-- Minimum Node.js: 20.19.0
+- Only `dist/` folder is published to npm
+- Source maps maintained for debugging
+- Type definitions generated alongside JavaScript
+- Multiple entry points via conditional exports
 
-## 4. Common Commands
 
-### Monorepo Commands
+
+# Technology Stack
+
+## Build System
+
+- **Monorepo Manager**: Turborepo with pnpm workspaces
+- **Package Manager**: pnpm (v10.28.2)
+- **Node Version**: >=18 (main package requires >=20.19.0)
+
+## Core Technologies
+
+### Main Package (cls-extended)
+
+- **Language**: TypeScript (v5.9.2)
+- **Module System**: ESM (type: "module")
+- **Build Tool**: tsdown with tsdown-preset-sxzz
+- **Testing**: Vitest (v4.0.18)
+- **Key Dependencies**:
+  - `@babel/parser` - AST parsing
+  - `magic-string` - Source transformations
+  - `unplugin` - Universal plugin system
+
+### Shared Packages
+
+- `@repo/eslint-config` - Shared ESLint configuration
+- `@repo/typescript-config` - Shared TypeScript configuration
+
+### Examples
+
+- Next.js example (App Router)
+- Vite + React example
+
+## Code Quality Tools
+
+### Linting
+
+- ESLint v9 with flat config
+- TypeScript ESLint
+- Prettier integration (eslint-config-prettier)
+- Turbo plugin for monorepo-specific rules
+- Only-warn plugin (all errors as warnings)
+
+### Formatting
+
+- Prettier v3.8.1
+
+### Type Checking
+
+- TypeScript strict mode enabled
+- `noUnusedLocals: true` in main package
+
+## Common Commands
+
+### Root Level
 
 ```bash
-# Build all packages with Turborepo caching
+# Install dependencies
+pnpm install
+
+# Build all packages
 pnpm build
 
-# Run tests in all packages
+# Run all tests
 pnpm test
 
 # Type check all packages
@@ -369,177 +234,67 @@ pnpm typecheck
 # Lint all packages
 pnpm lint
 
-# Clean all build outputs and caches
-pnpm clean
-
-# Format all code
+# Format code
 pnpm format
+
+# Run dev mode for all packages
+pnpm dev
 ```
 
-### Package-Specific Commands
+### Package-Specific
 
 ```bash
-# Build only the plugin
+# Build specific package
 pnpm --filter cls-extended build
+
+# Run tests in watch mode
+pnpm --filter cls-extended test
 
 # Run example in dev mode
 pnpm --filter vite-react dev
+pnpm --filter nextjs dev
 
-# Run plugin tests (single run)
-pnpm --filter cls-extended test --run
-
-# Run plugin tests (watch mode)
-pnpm --filter cls-extended test
-
-# Type check plugin only
-pnpm --filter cls-extended typecheck
-
-# Lint plugin only
-pnpm --filter cls-extended lint
+# Lint and fix
+pnpm --filter cls-extended lint:fix
 ```
 
-### Development Workflow
+### Release
 
-```bash
-# 1. Install dependencies
-pnpm install
+- Uses `release-it` with conventional changelog
+- Semantic versioning with conventional commits
+- Auto-changelog generation
 
-# 2. Build plugin
-pnpm --filter cls-extended build
+## Turborepo Configuration
 
-# 3. Start example (requires plugin build first)
-pnpm --filter vite-react dev
+### Task Pipeline
 
-# 4. Run tests in watch mode
-pnpm --filter cls-extended test
+- `build`: Depends on `^build` (dependencies first), outputs to `dist/` and `.next/`
+- `lint`: Depends on `^lint`
+- `typecheck`: Depends on `^typecheck`
+- `test`: Depends on `^build`
+- `dev`: No cache, persistent task
 
-# 5. Build everything
-pnpm build
-```
+## Dependency Management
 
-### Publishing Workflow
+### Catalogs
 
-```bash
-# Navigate to package
-cd packages/cls-extended
+Uses pnpm catalogs for shared dependency versions across packages:
 
-# Bump version
-pnpm bumpp
+- ESLint ecosystem packages
+- TypeScript and type definitions
+- Utilities (globals)
 
-# Build
-pnpm build
+### Build Restrictions
 
-# Test
-pnpm test --run
+- `allowBuilds.esbuild: false` - Prevents esbuild from building from source
+- `onlyBuiltDependencies` list for specific packages that require building
 
-# Publish to NPM
-pnpm publish
-```
+## Export Strategy
 
-## 5. Performance Characteristics
+Main package uses conditional exports for different adapters:
 
-### Build Performance
-
-- **Cold build**: ~2.0 seconds (full monorepo)
-- **Warm build**: ~0.5 seconds (with Turborepo cache)
-- **Plugin build**: ~500-700ms
-- **Example build**: ~1.5 seconds
-
-### Runtime Performance
-
-- **File transformation**: <1ms per file
-- **AST parsing**: ~0.3ms per file
-- **Source map generation**: ~0.1ms per file
-- **Memory usage**: <10MB for typical projects
-
-### Test Performance
-
-- **Test suite**: ~200ms (8 tests)
-- **Coverage generation**: ~50ms
-- **Watch mode**: Instant feedback
-
-### CI/CD Performance
-
-- **Lint + Type Check**: ~30 seconds
-- **Test**: ~20 seconds
-- **Build**: ~40 seconds
-- **Total CI time**: ~90 seconds
-
-## 6. Future Roadmap
-
-### Planned Features (Phase 2)
-
-- **Variant Support**: hover, focus, dark mode variants
-- **Custom Breakpoints**: User-defined breakpoint configurations
-- **Group/Peer Variants**: Advanced Tailwind variant support
-- **IDE Extensions**: VS Code and WebStorm plugins
-
-### Extensibility
-
-- Plugin architecture designed for extension
-- Monorepo structure supports additional packages
-- Community contribution opportunities
-- Framework-specific preset packages
-
-### Potential Technology Additions
-
-- **Changesets**: For versioning and changelogs
-- **Codecov**: For coverage reporting
-- **Remote Turborepo cache**: For team caching
-- **Renovate**: For dependency updates
-
-## 7. Agent Working Guidelines
-
-### Code Style
-
-- Follow existing TypeScript patterns
-- Use strict mode TypeScript
-- Prefer composition over inheritance
-- Keep functions pure where possible
-- Write self-documenting code
-
-### Testing Strategy
-
-- Write tests for all new features
-- Maintain 100% coverage
-- Use snapshot testing for transformations
-- Test edge cases and error handling
-
-### Documentation
-
-- Update README.md for API changes
-- Add JSDoc comments for public APIs
-- Update tutorial chapters if architecture changes
-- Keep examples in sync with API changes
-
-### Pull Request Process
-
-1. Create feature branch
-2. Write tests first (TDD)
-3. Implement feature
-4. Run full test suite
-5. Update documentation
-6. Create PR with clear description
-
-### Debugging Tips
-
-- Use `DEBUG=cls-extended:*` for verbose logging
-- Check AST output with `console.log(JSON.stringify(ast, null, 2))`
-- Test transformations in isolation
-- Use Vitest UI for interactive debugging
-
-### Common Pitfalls
-
-- Don't modify AST nodes in-place (clone first)
-- Always handle undefined/null in transforms
-- Remember source map offsets
-- Test with real-world code examples
-- Consider performance for large files
-
-### Best Practices
-
-- Keep adapters thin (logic in core)
-- Cache expensive operations
-- Use magic-string for all code modifications
-- Validate plugin options early
-- Provide helpful error messages
+- `./adapters/vite` - Vite plugin
+- `./adapters/webpack` - Webpack plugin
+- `./api` - Core API
+- `./core/*` - Core modules
+- `./unplugin-factory` - Universal plugin factory
