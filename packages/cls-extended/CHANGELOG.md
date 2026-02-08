@@ -2,7 +2,16 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
-#### [Unreleased](https://github.com/yeasin2002/cls-extended/compare/v1.1.2...HEAD)
+#### [Unreleased](https://github.com/yeasin2002/cls-extended/compare/v1.1.3...HEAD)
+
+#### [v1.1.3](https://github.com/yeasin2002/cls-extended/compare/v1.1.2...v1.1.3)
+
+> 8 February 2026
+
+- ♻️ Refactor: consolidate eslint configuration and update dependencies [`f23586a`](https://github.com/yeasin2002/cls-extended/commit/f23586a4ddf205b964bc8a1a2dd274c6bdd2b92e)
+- 🔧 Chore: updated agent rule [`c9f2ea0`](https://github.com/yeasin2002/cls-extended/commit/c9f2ea045aaaef3a38b19b6ef66a1a29a19228f6)
+- 🔧 Chore: added consolidate typescript configurations and update workspace dependencies [`940104d`](https://github.com/yeasin2002/cls-extended/commit/940104d6ebca480662ad59e32bfe360344ef3cae)
+- 🔧 Chore: update CHANGELOG.md for v1.1.2 [skip ci] [`be9f2d9`](https://github.com/yeasin2002/cls-extended/commit/be9f2d9a4da9ebff151911decfab8cfa35e7c881)
 
 #### [v1.1.2](https://github.com/yeasin2002/cls-extended/compare/v1.1.1...v1.1.2)
 
