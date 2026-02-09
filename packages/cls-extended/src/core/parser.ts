@@ -29,14 +29,14 @@ export function findClsCalls(code: string): ClsCallExpression[] {
     if (node.type === "CallExpression") {
       const callee = node.callee;
 
-      // Check if it's tw() or tw.something()
-      const isTwCall =
-        (callee.type === "Identifier" && callee.name === "tw") ||
+      // Check if it's cls() or cls.something()
+      const isClsCall =
+        (callee.type === "Identifier" && callee.name === "cls") ||
         (callee.type === "MemberExpression" &&
           callee.object.type === "Identifier" &&
-          callee.object.name === "tw");
+          callee.object.name === "cls");
 
-      if (isTwCall) {
+      if (isClsCall) {
         const args = node.arguments;
 
         // Must have at least 1 argument (base classes)

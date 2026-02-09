@@ -25,7 +25,7 @@ yarn add -D cls-extended
 
 ## Setup
 
-### Vite
+### Vite + Tailwind CSS v4
 
 ```ts
 // vite.config.ts
@@ -36,6 +36,13 @@ export default defineConfig({
   plugins: [clsExtended()],
 });
 ```
+
+That's it! The plugin automatically:
+1. Transforms `cls()` calls to static strings at build time
+2. Extracts all class names from your code
+3. Injects them into your CSS file using Tailwind v4's `@source inline()` directives
+
+No configuration needed - just install the plugin and it works!
 
 ### Next.js (Webpack) - Before Next.js 16
 
