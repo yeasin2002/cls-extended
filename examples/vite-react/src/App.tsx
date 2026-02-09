@@ -1,5 +1,7 @@
 import { cls } from "cls-extended";
 
+import { twMerge } from "tailwind-merge";
+
 const App = () => {
   return (
     <div className="min-h-screen bg-linear-to-br from-blue-50 to-indigo-100">
@@ -17,12 +19,14 @@ const App = () => {
         >
           <div className="flex items-center justify-between">
             <h1
-              className={cls("text-2xl font-bold text-indigo-600", {
-                md: "text-3xl",
-                lg: "text-4xl",
-              })}
+              className={twMerge(
+                cls("text-2xl font-bold text-indigo-600", {
+                  md: "text-3xl",
+                  lg: "text-4xl text-amber-700",
+                }),
+              )}
             >
-              unplugin-tw-classname
+              cls-extended
             </h1>
             <div className="flex gap-4">
               <button

@@ -10,16 +10,13 @@
     "test": "turbo run test"
   },
   "devDependencies": {
-    "@semantic-release/changelog": "^6.0.0",
-    "@semantic-release/git": "^10.0.0",
     "lefthook": "^2.1.0",
     "prettier": "^3.8.1",
-    "semantic-release": "^25.0.0",
     "turbo": "^2.8.3",
     "typescript": "5.9.2",
     "vitest": "^4.0.18"
   },
-  "packageManager": "pnpm@10.28.2",
+  "packageManager": "pnpm@10.29.2",
   "engines": {
     "node": ">=18"
   }
