@@ -31,6 +31,25 @@ export function transformClsCalls(
   };
 }
 
+/**
+ * Extract all expanded class names from cls() calls in the code.
+ * Used to generate a safelist file that Tailwind's scanner can detect.
+ */
+export function extractExpandedClasses(
+  code: string,
+  options: OptionsResolved,
+): string[] {
+  const clsCalls = findClsCalls(code);
+  if (clsCalls.length === 0) return [];
+
+  const classes: string[] = [];
+  for (const call of clsCalls) {
+    const classString = generateClassString(call, options);
+    classes.push(...classString.split(/\s+/).filter(Boolean));
+  }
+  return classes;
+}
+
 function generateClassString(
   call: ClsCallExpression,
   options: OptionsResolved,
@@ -58,3 +77,4 @@ function generateClassString(
 
   return parts.filter(Boolean).join(" ");
 }
+

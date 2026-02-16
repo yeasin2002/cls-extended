@@ -30,6 +30,14 @@ export interface Options {
    * @default false
    */
   enableVariants?: boolean;
+
+  /**
+   * Path to the safelist file that will be generated for Tailwind CSS to discover.
+   * This file contains all expanded class names (e.g. md:text-2xl) so Tailwind
+   * can generate the corresponding CSS.
+   * @default '.cls-extended-safelist'
+   */
+  safelistPath?: string;
 }
 
 export type OptionsResolved = Required<Options>;
@@ -47,5 +55,6 @@ export function resolveOptions(options: Options = {}): OptionsResolved {
       "2xl": "1536px",
     },
     enableVariants: options.enableVariants ?? false,
+    safelistPath: options.safelistPath ?? "cls-extended-safelist.html",
   };
 }

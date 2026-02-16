@@ -1,7 +1,5 @@
 import { cls } from "cls-extended";
 
-
-
 const App = () => {
   return (
     <div className="min-h-screen bg-linear-to-br from-blue-50 to-indigo-100">
@@ -21,7 +19,7 @@ const App = () => {
             <h1
               className={cls("text-2xl font-bold text-indigo-600 ", {
                 md: "text-3xl",
-                lg: "text-4xl text-amber-800",
+                lg: "text-4xl text-red-900",
               })}
             >
               cls-extended

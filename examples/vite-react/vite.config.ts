@@ -5,7 +5,8 @@ import { defineConfig } from "vite";
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), clsExtended(), tailwindcss()],
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  plugins: [react(), clsExtended() as any, tailwindcss()],
   server: {
     port: 3100,
     strictPort: false,
