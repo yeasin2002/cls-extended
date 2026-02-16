@@ -77,4 +77,3 @@ function generateClassString(
 
   return parts.filter(Boolean).join(" ");
 }
-

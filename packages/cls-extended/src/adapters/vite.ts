@@ -6,7 +6,7 @@ import { resolveOptions } from "../core/options";
 import { extractExpandedClasses } from "../core/transform";
 import unplugin from "../unplugin-factory";
 
-/* eslint-disable no-console */
+
 
 /**
  * Recursively walk a directory and return all file paths matching a filter.
@@ -49,90 +49,118 @@ function matchesFilters(
 /**
  * Vite plugin for cls-extended.
  * Returns an array of Vite plugins:
- * 1. JS/TS transform — replaces cls() calls with static strings
- * 2. CSS transform — injects @source directive so Tailwind v4 generates
- *    CSS for all expanded class names.
+ * 1. JS/TS transform — replaces cls() calls with static strings for the final bundle.
+ * 2. CSS/JS Watcher — tracks classes in JS/TS files and generates a safelist file for Tailwind v4.
  */
 export default function clsExtendedVite(rawOptions?: Options): Plugin[] {
   const options = resolveOptions(rawOptions);
-  const allClasses = new Set<string>();
-  let viteConfig: ResolvedConfig;
 
-  // The unplugin-based JS transform plugin
+  // Track classes per file to handle updates (HMR) correctly
+  // Map<filePath, extractedClasses[]>
+  const fileClasses = new Map<string, string[]>();
+
+  let viteConfig: ResolvedConfig;
+  let updateTimer: NodeJS.Timeout | null = null;
+
+  // Helper to write the safelist file (debounced)
+  const updateSafelist = () => {
+    if (updateTimer) clearTimeout(updateTimer);
+    updateTimer = setTimeout(() => {
+      const allUniqueClasses = new Set<string>();
+      for (const classes of fileClasses.values()) {
+        for (const cls of classes) {
+          allUniqueClasses.add(cls);
+        }
+      }
+
+      if (viteConfig && allUniqueClasses.size > 0) {
+        // Use .html extension to ensure Tailwind's scanner picks it up correctly
+        const safelistPath = path.join(
+          viteConfig.root,
+          "cls-extended-safelist.html",
+        );
+        const content = `<div class="${[...allUniqueClasses].join(" ")}"></div>`;
+        try {
+          fs.writeFileSync(safelistPath, content, "utf-8");
+        } catch {
+          // Non-fatal: safelist write failure
+        }
+      }
+    }, 50); // 50ms debounce
+  };
+
+  const includePatterns = (
+    Array.isArray(options.include) ? options.include : [options.include]
+  ) as (string | RegExp)[];
+  const excludePatterns = (
+    Array.isArray(options.exclude) ? options.exclude : [options.exclude]
+  ) as (string | RegExp)[];
+
+  // The unplugin-based JS transform plugin (handles the actual runtime transformation)
   const jsPlugin = unplugin.vite(rawOptions) as Plugin;
 
-  // CSS plugin that injects @source for Tailwind v4
-  const cssPlugin: Plugin = {
-    name: "cls-extended:css",
+  // Integration plugin: handles file scanning, HMR updates, and CSS injection
+  const integrationPlugin: Plugin = {
+    name: "cls-extended:integration",
     enforce: "pre",
 
     configResolved(config: ResolvedConfig) {
       viteConfig = config;
-      // Pre-scan all source files from the project root
       const root = config.root;
-      console.log(
-        `[cls-extended] configResolved - Scanning from root: ${root}`,
-      );
-
-      const includePatterns = (
-        Array.isArray(options.include) ? options.include : [options.include]
-      ) as (string | RegExp)[];
-      const excludePatterns = (
-        Array.isArray(options.exclude) ? options.exclude : [options.exclude]
-      ) as (string | RegExp)[];
 
       const sourceFiles = walkDir(root, (filePath) =>
         matchesFilters(filePath, includePatterns, excludePatterns),
       );
-      console.log(`[cls-extended] Found ${sourceFiles.length} source files`);
 
-      allClasses.clear();
+      fileClasses.clear();
       for (const filePath of sourceFiles) {
         try {
           const code = fs.readFileSync(filePath, "utf-8");
           if (!code.includes("cls(")) continue;
           const classes = extractExpandedClasses(code, options);
           if (classes.length > 0) {
-            console.log(
-              `[cls-extended] Found ${classes.length} classes in ${path.relative(root, filePath)}: ${classes.join(", ")}`,
-            );
-          }
-          for (const cls of classes) {
-            allClasses.add(cls);
+            fileClasses.set(filePath, classes);
           }
         } catch {
-          // Skip files that can't be read
+          // Skip
         }
       }
-      console.log(
-        `[cls-extended] Total unique expanded classes: ${allClasses.size}`,
-      );
 
-      // Write the safelist file immediately so it's available for @source
-      if (allClasses.size > 0) {
-        // Use .html extension to ensure Tailwind's scanner picks it up correctly
-        const safelistPath = path.join(root, "cls-extended-safelist.html");
-        // Format based on file extension (html is safest for Tailwind scanner)
-        // We wrap in a div to ensure Tailwind definitely sees them as classes
-        const content = `<div class="${[...allClasses].join(" ")}"></div>`;
-        fs.writeFileSync(safelistPath, content, "utf-8");
-        console.log(`[cls-extended] Wrote safelist to: ${safelistPath}`);
-      }
+      updateSafelist();
     },
 
     transform(code: string, id: string) {
-      // Only process CSS files that import tailwindcss
-      if (!id.endsWith(".css") && !id.includes(".css?")) return null;
-      if (!code.includes("@import") || !code.includes("tailwindcss")) {
+      // 1. Handle JS/TS updates (Watch Mode / HMR)
+      if (matchesFilters(id, includePatterns, excludePatterns)) {
+        // We scan for classes even if unplugin will transform them later usage
+        // This ensures the safelist is up to date *before* Tailwind sees the file (or coincidentally)
+        if (code.includes("cls(")) {
+          const classes = extractExpandedClasses(code, options);
+          if (classes.length > 0) {
+            const prev = fileClasses.get(id);
+            // Only update if changed (simple JSON comparison for quick check)
+            if (JSON.stringify(prev) !== JSON.stringify(classes)) {
+              fileClasses.set(id, classes);
+              updateSafelist();
+            }
+          } else if (fileClasses.has(id)) {
+            // If classes were removed
+            fileClasses.delete(id);
+            updateSafelist();
+          }
+        } else if (fileClasses.has(id)) {
+          // cls() calls removed entirely
+          fileClasses.delete(id);
+          updateSafelist();
+        }
+        // Return null to allow other plugins (like our jsPlugin) to process the code
         return null;
       }
 
-      console.log(`[cls-extended] Transforming CSS file: ${path.basename(id)}`);
-
-      if (allClasses.size === 0) {
-        console.log(
-          `[cls-extended] No classes to inject (allClasses is empty)`,
-        );
+      // 2. Handle CSS Injection
+      // Only process CSS files that import tailwindcss
+      if (!id.endsWith(".css") && !id.includes(".css?")) return null;
+      if (!code.includes("@import") || !code.includes("tailwindcss")) {
         return null;
       }
 
@@ -141,27 +169,17 @@ export default function clsExtendedVite(rawOptions?: Options): Plugin[] {
         viteConfig.root,
         "cls-extended-safelist.html",
       );
-      if (!fs.existsSync(safelistPath)) {
-        console.log(
-          `[cls-extended] Safelist file not found at ${safelistPath}`,
-        );
-        return null;
-      }
 
-      // Create a relative path from the CSS file to the safelist file
-      // Tailwind's @source directive resolves paths relative to the CSS file
+      // Even if file doesn't exist yet (race condition), we point to it.
+      // Tailwind will pick it up when created.
+
       let relativePath = path.relative(path.dirname(id), safelistPath);
-      // Ensure it starts with ./ or ../
       if (!relativePath.startsWith(".")) {
         relativePath = "./" + relativePath;
       }
-      // Normalize path separators to forward slashes for CSS string
       relativePath = relativePath.split(path.sep).join("/");
 
       const sourceDirective = `@source "${relativePath}";\n`;
-      console.log(`[cls-extended] Injecting: ${sourceDirective.trim()}`);
-
-      // Prepend the source directive so it is seen before @import tailwindcss
       return {
         code: sourceDirective + "\n" + code,
         map: null,
@@ -169,5 +187,5 @@ export default function clsExtendedVite(rawOptions?: Options): Plugin[] {
     },
   };
 
-  return [jsPlugin, cssPlugin];
+  return [jsPlugin, integrationPlugin];
 }

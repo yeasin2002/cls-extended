@@ -19,7 +19,7 @@ const App = () => {
             <h1
               className={cls("text-2xl font-bold text-indigo-600 ", {
                 md: "text-3xl",
-                lg: "text-4xl text-red-900",
+                lg: "text-4xl text-amber-100",
               })}
             >
               cls-extended
