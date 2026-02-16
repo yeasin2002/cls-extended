@@ -1,6 +1,6 @@
 import { cls } from "cls-extended";
 
-import { twMerge } from "tailwind-merge";
+
 
 const App = () => {
   return (
@@ -19,12 +19,10 @@ const App = () => {
         >
           <div className="flex items-center justify-between">
             <h1
-              className={twMerge(
-                cls("text-2xl font-bold text-indigo-600", {
-                  md: "text-3xl",
-                  lg: "text-4xl text-amber-700",
-                }),
-              )}
+              className={cls("text-2xl font-bold text-indigo-600 ", {
+                md: "text-3xl",
+                lg: "text-4xl text-amber-800",
+              })}
             >
               cls-extended
             </h1>

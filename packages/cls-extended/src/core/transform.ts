@@ -13,20 +13,15 @@ export function transformClsCalls(
   _id: string,
   options: OptionsResolved,
 ): TransformResult | null {
-  // Find all tw() calls
-  const twCalls = findClsCalls(code);
-
-  if (twCalls.length === 0) {
-    return null;
-  }
+  const clsCalls = findClsCalls(code);
+  if (clsCalls.length === 0) return null;
 
   const s = new MagicString(code);
 
-  // Process each tw() call
-  for (const call of twCalls) {
+  for (const call of clsCalls) {
     const transformedString = generateClassString(call, options);
 
-    // Replace the entire tw() call with a static string
+    // Replace the entire cls() call with a static string
     s.overwrite(call.start, call.end, `"${transformedString}"`);
   }
 

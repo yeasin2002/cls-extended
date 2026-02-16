@@ -5,7 +5,7 @@ import { defineConfig } from "vite";
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), tailwindcss(), clsExtended()],
+  plugins: [react(), clsExtended(), tailwindcss()],
   server: {
     port: 3100,
     strictPort: false,

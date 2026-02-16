@@ -6,21 +6,13 @@ const unplugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
   (rawOptions = {}) => {
     const options = resolveOptions(rawOptions);
 
-    const name = "cls-extended";
     return {
-      name,
-
+      name: "cls-extended",
+      enforce: "pre",
       transform: {
-        filter: {
-          id: { include: options.include, exclude: options.exclude },
-        },
+        filter: { id: { include: options.include, exclude: options.exclude } },
         handler(code, id) {
-          // Only process files that might contain tw()
-          if (!code.includes("tw(")) {
-            return null;
-          }
-
-          // Perform transformation
+          if (!code.includes("cls(")) return null;
           return transformClsCalls(code, id, options);
         },
       },

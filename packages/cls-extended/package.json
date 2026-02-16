@@ -3,14 +3,38 @@
   "type": "module",
   "version": "1.0.0",
   "exports": {
-    ".": "./dist/index.js",
-    "./adapters/vite": "./dist/adapters/vite.js",
-    "./adapters/webpack": "./dist/adapters/webpack.js",
-    "./api": "./dist/api.js",
-    "./core/options": "./dist/core/options.js",
-    "./core/parser": "./dist/core/parser.js",
-    "./core/transform": "./dist/core/transform.js",
-    "./unplugin-factory": "./dist/unplugin-factory.js",
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./adapters/vite": {
+      "import": "./dist/adapters/vite.js",
+      "require": "./dist/adapters/vite.cjs"
+    },
+    "./adapters/webpack": {
+      "import": "./dist/adapters/webpack.js",
+      "require": "./dist/adapters/webpack.cjs"
+    },
+    "./api": {
+      "import": "./dist/api.js",
+      "require": "./dist/api.cjs"
+    },
+    "./core/options": {
+      "import": "./dist/core/options.js",
+      "require": "./dist/core/options.cjs"
+    },
+    "./core/parser": {
+      "import": "./dist/core/parser.js",
+      "require": "./dist/core/parser.cjs"
+    },
+    "./core/transform": {
+      "import": "./dist/core/transform.js",
+      "require": "./dist/core/transform.cjs"
+    },
+    "./unplugin-factory": {
+      "import": "./dist/unplugin-factory.js",
+      "require": "./dist/unplugin-factory.cjs"
+    },
     "./package.json": "./package.json"
   },
   "typesVersions": {
@@ -78,5 +102,8 @@
     "rolldown",
     "esbuild",
     "farm"
-  ]
+  ],
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.cts"
 }
