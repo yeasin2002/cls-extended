@@ -6,8 +6,6 @@ import { resolveOptions } from "../core/options";
 import { extractExpandedClasses } from "../core/transform";
 import unplugin from "../unplugin-factory";
 
-
-
 /**
  * Recursively walk a directory and return all file paths matching a filter.
  */
