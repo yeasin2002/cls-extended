@@ -2,7 +2,27 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
-#### [Unreleased](https://github.com/yeasin2002/cls-extended/compare/v1.1.3...HEAD)
+#### [Unreleased](https://github.com/yeasin2002/cls-extended/compare/v1.1.5...HEAD)
+
+#### [v1.1.5](https://github.com/yeasin2002/cls-extended/compare/v1.1.4...v1.1.5)
+
+> 16 February 2026
+
+- ✨ Feature: Add Vite React example project demonstrating zero-runtime responsive Tailwind CSS class transformation with `cls-extended` and implement its Vite adapter. [`ae88919`](https://github.com/yeasin2002/cls-extended/commit/ae88919b814794bf4813d4bd95060cd48c7d5c5f)
+- ✨ Feature: Add `cls-extended` package with a Vite plugin to dynamically generate a Tailwind CSS safelist by scanning for `cls()` calls. [`0c2c269`](https://github.com/yeasin2002/cls-extended/commit/0c2c2698a6ec0d7da39a84d0f55832f08a473ea3)
+- 👷 CI: fixed pnpm version [`841a8d5`](https://github.com/yeasin2002/cls-extended/commit/841a8d5c5bacb1067899b762c6759ef1b8c0faef)
+
+#### [v1.1.4](https://github.com/yeasin2002/cls-extended/compare/v1.1.3...v1.1.4)
+
+> 16 February 2026
+
+- 🔧 Chore: updated lockfiles [`ad61bb1`](https://github.com/yeasin2002/cls-extended/commit/ad61bb123da6a678768128515abc0d3cf8d127d2)
+- 🐛 Fix: taiwlincdcss  registrating genereated styles [`9e93571`](https://github.com/yeasin2002/cls-extended/commit/9e93571cc502b74c81d5b933252169978086c6b2)
+- 🔧 Chore: add lefthook configuration [`493ed75`](https://github.com/yeasin2002/cls-extended/commit/493ed75a9f6d5b616bdd051b2376b469dc3ba198)
+- 🐛 Fix: formating issue [`182400d`](https://github.com/yeasin2002/cls-extended/commit/182400d943e3281faac7bece22af9e492f4048ba)
+- ✨ Feature: introduce cls-extended unplugin for zero-runtime conditional class name generation and provide a Vite React example. [`0c463bf`](https://github.com/yeasin2002/cls-extended/commit/0c463bf2e414aac53654781c803fa648bd49c6c0)
+- 🔧 Chore: update CHANGELOG.md for v1.1.3 [skip ci] [`4c2ff28`](https://github.com/yeasin2002/cls-extended/commit/4c2ff28397802305481d5a7c505a04b93ba9582f)
+- 🔧 Chore: updated lefthook config [`b087e87`](https://github.com/yeasin2002/cls-extended/commit/b087e8710a85065cb8004f32dbfac4b4317abfe5)
 
 #### [v1.1.3](https://github.com/yeasin2002/cls-extended/compare/v1.1.2...v1.1.3)
 
@@ -43,14 +63,14 @@ All notable changes to this project will be documented in this file. Dates are d
 - 🔧 Chore: added examples with vite-react and nextjs [`a8c5269`](https://github.com/yeasin2002/cls-extended/commit/a8c52697f582ff687df36d4840cdf848f5fbd6a6)
 - 👷 CI: migrate from semantic-release to release-it for tag-based releases [`0ed0105`](https://github.com/yeasin2002/cls-extended/commit/0ed0105ec73d1babc4864187d8d9d1c1db192f27)
 - 📚 Docs: updated release documentations [`fd20789`](https://github.com/yeasin2002/cls-extended/commit/fd207899403a42bb8536501cfada5b4a9349485f)
-- 👷 CI: enhance release workflow with version based and also manual triggers. [`d04e522`](https://github.com/yeasin2002/cls-extended/commit/d04e522990ace9230490f21c57f0ad7cd7c02edb)
+- 👷 CI: enhance release workflow with version based and also  manual triggers. [`d04e522`](https://github.com/yeasin2002/cls-extended/commit/d04e522990ace9230490f21c57f0ad7cd7c02edb)
 - 📚 Docs: updated core to cls-extended [`d89eedf`](https://github.com/yeasin2002/cls-extended/commit/d89eedf941b195152bd88d8bedeb518591d4c22a)
 - refactor(core): move unplugin factory to separate module [`fa9c0f7`](https://github.com/yeasin2002/cls-extended/commit/fa9c0f778a990fe12254735f714a3a64c69a1758)
-- 🔧 Chore: updated lockfile [`1fa7834`](https://github.com/yeasin2002/cls-extended/commit/1fa78342ef9b7ae41b94eacff6f0a201bad9030c)
+- 🔧 Chore:  updated lockfile [`1fa7834`](https://github.com/yeasin2002/cls-extended/commit/1fa78342ef9b7ae41b94eacff6f0a201bad9030c)
 - 👷 CI: simplify release workflow, remove manual dispatch release [`0788cec`](https://github.com/yeasin2002/cls-extended/commit/0788cec87a49d900e1308809310a09a4d893c1a0)
-- 👷 CI: simplify release workflow trigger conditions; stopping release every time main changes [`17d1cac`](https://github.com/yeasin2002/cls-extended/commit/17d1cace1e4cd1f4fdf4bcbbc44c07cb1dafe33a)
+- 👷 CI: simplify release workflow trigger conditions; stopping  release every time main changes [`17d1cac`](https://github.com/yeasin2002/cls-extended/commit/17d1cace1e4cd1f4fdf4bcbbc44c07cb1dafe33a)
 - ♻️ Refactor: renamed core to cls-extended for better clarity [`fe47f07`](https://github.com/yeasin2002/cls-extended/commit/fe47f074824a6e1ec4c14d99c165359b313ea07d)
-- 👷 CI: updated node-version to latest [`4e7a83c`](https://github.com/yeasin2002/cls-extended/commit/4e7a83c104c23ca982d37705243b6d3f8be1c44f)
+- 👷 CI: updated  node-version to latest [`4e7a83c`](https://github.com/yeasin2002/cls-extended/commit/4e7a83c104c23ca982d37705243b6d3f8be1c44f)
 - 👷 CI: updated release node-version to latest [`772b921`](https://github.com/yeasin2002/cls-extended/commit/772b92190efcc5f74464fd8b835fb9e8bbf94002)
 
 #### v1.0.0
@@ -58,9 +78,9 @@ All notable changes to this project will be documented in this file. Dates are d
 > 7 February 2026
 
 - 🔧 Chore: removed doc [`73c82c5`](https://github.com/yeasin2002/cls-extended/commit/73c82c52659f0b53afc5ca8c05d810e16e2c790c)
-- ♻️ Refactor: added main doc template [`c587f99`](https://github.com/yeasin2002/cls-extended/commit/c587f99e4167a50189e6daa8a042495b27e795f0)
+- ♻️ Refactor:  added main doc  template [`c587f99`](https://github.com/yeasin2002/cls-extended/commit/c587f99e4167a50189e6daa8a042495b27e795f0)
 - 🔧 Chore: added nextjs example [`a04757d`](https://github.com/yeasin2002/cls-extended/commit/a04757d2c395ab3d931284cb1281eaad5501e764)
-- ✨ Feature: added core template [`62bb50c`](https://github.com/yeasin2002/cls-extended/commit/62bb50ceef68ad381cc9bfd77583ed237096f219)
+- ✨ Feature: added core  template [`62bb50c`](https://github.com/yeasin2002/cls-extended/commit/62bb50ceef68ad381cc9bfd77583ed237096f219)
 - 🔧 Chore: removed example [`389ed2e`](https://github.com/yeasin2002/cls-extended/commit/389ed2e4a1d54349bcbe475bbab014155bac3fa7)
 - Initial commit from create-turbo [`493e016`](https://github.com/yeasin2002/cls-extended/commit/493e016e5c3220612f3df45bdf7fa9ab26641b9a)
 - chore(core): centralize lockfile and refine adapter exports [`b99b052`](https://github.com/yeasin2002/cls-extended/commit/b99b0520fd909c97fbb8e39d4945a831df32abee)
@@ -81,7 +101,7 @@ All notable changes to this project will be documented in this file. Dates are d
 - docs(nextjs): update example with runtime cls API and Turbopack guidance [`d2347bb`](https://github.com/yeasin2002/cls-extended/commit/d2347bb4c9f1cb59935e5c377d37737bfd3abe2f)
 - 🔧 Chore: removed unnecessary adapters [`c03e080`](https://github.com/yeasin2002/cls-extended/commit/c03e08003177c163df874975ff33d78686fb8bf6)
 - updated readme [`5810b39`](https://github.com/yeasin2002/cls-extended/commit/5810b394add7e8502cf9056b28072b6b7ad37d4d)
-- 🔧 Chore: renamed project name from tw-compose to cls-extended [`e7dd5e0`](https://github.com/yeasin2002/cls-extended/commit/e7dd5e0fe931e237614360019fbefc117925f78e)
+- 🔧 Chore: renamed  project name from tw-compose to   cls-extended [`e7dd5e0`](https://github.com/yeasin2002/cls-extended/commit/e7dd5e0fe931e237614360019fbefc117925f78e)
 - feat(core): enhance options with sourcemaps and Tailwind config [`256158d`](https://github.com/yeasin2002/cls-extended/commit/256158dfdf5c9fb3b365a05adf4ace686a70988e)
 - chore(core): add ESLint configuration [`e84b656`](https://github.com/yeasin2002/cls-extended/commit/e84b656f8c9ee0d357f0b95ec0cd05705ad50bf2)
 - ci(workflows): simplify example build pipeline [`bd66c73`](https://github.com/yeasin2002/cls-extended/commit/bd66c73b9683d0b2a6f1741aab040e65baad7135)
